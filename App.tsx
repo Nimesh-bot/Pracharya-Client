@@ -4,9 +4,9 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import Home from './src/screens/Home';
 import { STATUS_BAR_HEIGHT } from './src/libs/constants';
 import tailwindConfig from "./tailwind.config";
+import RootNavigator from './src/navigator/RootNavigator';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -39,7 +39,7 @@ export default function App() {
           padding: 20,
           backgroundColor: (tailwindConfig as any).theme?.colors.light
         }}>
-          <Home />
+          <RootNavigator />
         </View>
       </View>
     </SafeAreaProvider>
