@@ -31,7 +31,7 @@ module.exports = {
           red: "#DC143C",
           red200: "#DC143C20",
           light: "#f7f7f7",
-          dark: "#222222",
+          dark: "#122D42",
           border: "#14141515",
           borderDark: "#14141530",
           lightPlus: "#eeeeee",

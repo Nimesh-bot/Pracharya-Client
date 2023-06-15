@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import StatusBar from '../../components/StatusBar'
+import AppBar from '../../components/AppBar'
 
 const HomeScreen = () => {
   return (
     <>
-      <StatusBar />
-      <View className='h-1'>
+      <AppBar />
+      <View className='h-1 p-xl'>
         <Text>HomeScreen</Text>
       </View>
     </>

@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../screens/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import TabNavigationIcons from "../../assets/icons/tabNavigation-icons";
 import tailwindConfig from "../../tailwind.config";
+
+import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CreateScreen from "../screens/CreateScreen";
 import BookmarksScreen from "../screens/BookmarksScreen";
@@ -13,7 +14,22 @@ const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: (tailwindConfig as any).theme.colors.white,
+          height: 60,
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+        tabBarShowLabel: false,
+        tabBarIcon: ({ focused }) => {
+          return <TabNavigationIcons name={route.name} size={21} active={focused} />
+        },
+      })}
+    >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Create" component={CreateScreen} />

@@ -6,7 +6,7 @@ import StackNavigator from './StackNavigator'
 const RootNavigator = () => {
   return (
     <NavigationContainer>
-        <StackNavigator />
+      <StackNavigator />
     </NavigationContainer>
   )
 }

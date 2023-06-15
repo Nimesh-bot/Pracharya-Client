@@ -10,7 +10,9 @@ const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
 
     return (
-        <Stack.Navigator initialRouteName='Tab'>
+        <Stack.Navigator initialRouteName='Tab' screenOptions={{
+            headerShown: false
+        }}>
             <Stack.Screen name="Tab" component={TabNavigator} />
         </Stack.Navigator>
     )

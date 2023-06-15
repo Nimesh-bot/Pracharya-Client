@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { STATUS_BAR_HEIGHT } from './src/libs/constants';
+import { SCREEN_HEIGHT, STATUS_BAR_HEIGHT } from './src/libs/constants';
 import tailwindConfig from "./tailwind.config";
 import RootNavigator from './src/navigator/RootNavigator';
 
@@ -19,7 +19,9 @@ export default function App() {
   
   return (
     <SafeAreaProvider>
-      <View>
+      <View style={{
+        backgroundColor: (tailwindConfig as any).theme?.colors.light,
+      }}>
         <View
           style={{
             height: STATUS_BAR_HEIGHT,
@@ -36,8 +38,8 @@ export default function App() {
         </View>
         
         <View style={{
-          padding: 20,
-          backgroundColor: (tailwindConfig as any).theme?.colors.light
+          width: '100%',
+          height: SCREEN_HEIGHT - STATUS_BAR_HEIGHT,
         }}>
           <RootNavigator />
         </View>
