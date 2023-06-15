@@ -1,6 +1,5 @@
 import { TouchableOpacity, Text } from 'react-native'
 import React from 'react'
-import { CategoryCardProps } from 'src/@types/home'
 
 const Card = ({ icon, title, active, onPress }: CategoryCardProps) => {
   return (

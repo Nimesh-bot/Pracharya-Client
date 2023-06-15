@@ -309,6 +309,26 @@ const SecurityIcon = (props) => (
   </Svg>
 )
 
+const RightArrowIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      stroke="#122D42"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit={10}
+      strokeWidth={1.5}
+      d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83"
+    />
+  </Svg>
+)
+
 export {
   HomeIcon,
   SearchIcon,
@@ -322,4 +342,5 @@ export {
   CarIcon,
   AirplaneSquareIcon,
   SecurityIcon,
+  RightArrowIcon
 } 
