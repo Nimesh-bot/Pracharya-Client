@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFonts } from 'expo-font';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -19,31 +19,33 @@ export default function App() {
   
   return (
     <SafeAreaProvider>
-      <View style={{
-        backgroundColor: (tailwindConfig as any).theme?.colors.light,
-      }}>
-        <View
-          style={{
-            height: STATUS_BAR_HEIGHT,
-            backgroundColor: (tailwindConfig as any).theme?.colors
-              .blue,
-          }}
-        >
-          <StatusBar
-            style={"dark"}
-            backgroundColor={
-              (tailwindConfig as any).theme?.colors.white
-            }
-          />
-        </View>
-        
+      <SafeAreaView>
         <View style={{
-          width: '100%',
-          height: SCREEN_HEIGHT - STATUS_BAR_HEIGHT,
+          backgroundColor: (tailwindConfig as any).theme?.colors.light,
         }}>
-          <RootNavigator />
+          <View
+            style={{
+              height: STATUS_BAR_HEIGHT,
+              backgroundColor: (tailwindConfig as any).theme?.colors
+                .blue,
+            }}
+          >
+            <StatusBar
+              style={"dark"}
+              backgroundColor={
+                (tailwindConfig as any).theme?.colors.white
+              }
+            />
+          </View>
+          
+          <View style={{
+            width: '100%',
+            height: SCREEN_HEIGHT - STATUS_BAR_HEIGHT,
+          }}>
+            <RootNavigator />
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }

@@ -1,13 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import AppBar from '../../components/AppBar'
+import Grid from './components/Categories/Grid'
 
 const HomeScreen = () => {
   return (
     <>
       <AppBar />
-      <View className='h-1 p-xl'>
-        <Text>HomeScreen</Text>
+      <View className='p-xl'>
+        <Grid />
       </View>
     </>
   )

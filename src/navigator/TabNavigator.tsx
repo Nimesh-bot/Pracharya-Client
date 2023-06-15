@@ -26,7 +26,7 @@ const TabNavigator = () => {
         },
         tabBarShowLabel: false,
         tabBarIcon: ({ focused }) => {
-          return <TabNavigationIcons name={route.name} size={21} active={focused} />
+          return <TabNavigationIcons name={route.name} size={24} active={focused} />
         },
       })}
     >

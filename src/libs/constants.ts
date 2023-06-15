@@ -1,6 +1,8 @@
 import { Dimensions } from "react-native";
 import Constants from "expo-constants";
 
+import { AirplaneSquareIcon, CarIcon, MenuIcon, PersonalCardIcon, SecurityIcon } from "../../assets/icons/svg-icons";
+
 export const SCREEN_HEIGHT = Dimensions.get("screen").height; // device height
 export const WINDOW_HEIGHT = Dimensions.get("window").height;
 
@@ -25,5 +27,43 @@ export const monthNames: string[] = [
     "Falgun",
     "Chaitra",
 ];
+
+export const categoryLists: any[] = [
+    {
+        id: 1,
+        name: "All",
+        icon: MenuIcon,
+    },
+    {
+        id: 2,
+        name: "License",
+        iconName: CarIcon,
+    },
+    {
+        id: 3,
+        name: "Insurance",
+        iconName: SecurityIcon,
+    },
+    {
+        id: 4,
+        name: "National ID",
+        iconName: PersonalCardIcon,
+    },
+    {
+        id: 5,
+        name: "Passport",
+        iconName: PersonalCardIcon,
+    },
+    {
+        id: 6,
+        name: "VISA",
+        iconName: AirplaneSquareIcon,
+    },
+    {
+        id: 7,
+        name: "Citizenship",
+        iconName: PersonalCardIcon,
+    }
+]
 
 export const STATUS_BAR_HEIGHT = Constants.statusBarHeight;
