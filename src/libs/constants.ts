@@ -34,37 +34,37 @@ export const categoryLists: any[] = [
     {
         id: 1,
         name: "All",
-        icon: MenuIcon,
+        icon: 'menu',
     },
     {
         id: 2,
         name: "License",
-        iconName: CarIcon,
+        iconName: 'car',
     },
     {
         id: 3,
         name: "Insurance",
-        iconName: SecurityIcon,
+        iconName: 'security',
     },
     {
         id: 4,
         name: "National ID",
-        iconName: PersonalCardIcon,
+        iconName: 'id',
     },
     {
         id: 5,
         name: "Passport",
-        iconName: PersonalCardIcon,
+        iconName: 'id',
     },
     {
         id: 6,
         name: "VISA",
-        iconName: AirplaneSquareIcon,
+        iconName: 'plane',
     },
     {
         id: 7,
         name: "Citizenship",
-        iconName: PersonalCardIcon,
+        iconName: 'id',
     }
 ]
 

@@ -12,9 +12,10 @@ const Grid = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
+                display: 'flex',
                 flexDirection: 'row',
-                gap: 20,
                 alignItems: 'center',
+                flexShrink: 0,
             }}
         >
             {
@@ -22,6 +23,7 @@ const Grid = () => {
                     <Card
                         key={index}
                         icon={category.iconName}
+                        index={index}
                         title={category.name}
                         active={selected === category.id}
                         onPress={() => setSelected(category.id)}

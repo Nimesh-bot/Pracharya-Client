@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, Image } from 'react-native'
 import RenderHTML from 'react-native-render-html'
 
@@ -6,11 +6,24 @@ import Tags from '../../../../components/Tags'
 import { BookmarksIcon, RightArrowIcon } from '../../../../../assets/icons/svg-icons'
 import { SCREEN_WIDTH } from '../../../../libs/constants'
 
-const Card = ({ description, tag, contributors}: PostCardProps) => {
-
-  const source = {
-    html: description.slice(0, 300)
-  }
+const Card = ({ description, tag, contributors, fullContent}: PostCardProps) => {
+  const [source, setSource] = useState({} as any)
+  
+  useEffect(() => {
+    if(!fullContent) {
+      setSource(
+        {
+          html: description.slice(0, 300)
+        }
+      )
+    } else {
+      setSource(
+        {
+          html: description
+        }
+      )
+    }
+  }, [description, fullContent])
 
   return (
     <Pressable className='py-base px-xl w-full bg-white rounded-md flex-col mt-base first-of-type:mt-0'>

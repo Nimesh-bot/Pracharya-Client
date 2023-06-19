@@ -9,6 +9,7 @@ import SearchScreen from "../screens/SearchScreen";
 import CreateScreen from "../screens/CreateScreen";
 import BookmarksScreen from "../screens/BookmarksScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import { BlurView } from "expo-blur";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -23,6 +24,9 @@ const TabNavigator = () => {
           height: 60,
           borderTopWidth: 0,
           elevation: 0,
+          borderTopColor: (tailwindConfig as any).theme.colors.text,
+          borderColor: 'transparent',
+          borderStyle: 'solid',
         },
         tabBarShowLabel: false,
         tabBarIcon: ({ focused }) => {

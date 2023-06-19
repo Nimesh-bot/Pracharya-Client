@@ -1,8 +1,9 @@
 declare interface CategoryCardProps {
     title: string;
-    icon: JSX.Element;
+    icon: string;
     active?: boolean;
     onPress?: () => void;
+    index?: number;
 }
 
 interface ContributorsProps {
@@ -15,4 +16,5 @@ declare interface PostCardProps {
     tag: string;
     description: HTMLSource;
     contributors: ContributorsProps[]; 
+    fullContent?: boolean;
 }
