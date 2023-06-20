@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { BlurView } from 'expo-blur';
 
 import Card from '../Posts/Card';
 import { RightArrowIcon } from '../../../../../assets/icons/svg-icons';
 import { fakePosts } from '../../../../libs/constants';
+import Interactions from './Interactions';
+import PostComment from './PostComment';
 
 const DetailPopup = () => {
+    const [commentShown, setCommentShown] = useState(false)
+
   return (
     <BlurView 
         className='bg-opacity-60 backdrop-blur-sm w-screen h-screen flex-col justify-end absolute top-0 left-0 z-50'
@@ -27,6 +31,11 @@ const DetailPopup = () => {
                     contributors={fakePosts[0].contributors}
                     fullContent={true}
                 />
+                <Interactions 
+                    commentShown={commentShown}
+                    setCommentShown={setCommentShown}
+                />
+                <PostComment />
             </View>
         </ScrollView>
     </BlurView>

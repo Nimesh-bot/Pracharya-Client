@@ -1,5 +1,6 @@
 declare interface ButtonProps {
-    text: string;
+    text?: string;
     additionalCss?: string;
     additionalTextCss?: string;
-}
+    icon?: JSX.Element;
+}s

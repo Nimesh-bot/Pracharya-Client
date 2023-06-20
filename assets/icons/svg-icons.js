@@ -1,5 +1,5 @@
 import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import Svg, { SvgProps, Path, G } from "react-native-svg"
 
 const HomeIcon = (props) => (
   <Svg
@@ -354,6 +354,123 @@ const RightArrowIcon = (props) => (
   </Svg>
 )
 
+const LikeIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      fill={
+        props.active ? "#1C44AC" : "#122D42"
+      }
+      d="M21.65 10.03c-.39-.56-1.08-.88-1.87-.88h-4.1c-.27 0-.52-.11-.69-.31-.18-.2-.25-.48-.21-.77l.51-3.28c.22-.98-.43-2.08-1.41-2.41-.91-.34-1.98.12-2.41.77L7.25 9.42l-.12.2v8.84l.15.15 3.17 2.45c.42.42 1.37.65 2.04.65h3.9c1.34 0 2.69-1.01 2.99-2.24l2.46-7.49c.26-.71.19-1.4-.19-1.95Z"
+      opacity={0.4}
+    />
+    <Path
+      fill={
+        props.active ? "#1C44AC" : "#122D42"
+      }
+      d="M5.21 6.379H4.18c-1.55 0-2.18.6-2.18 2.08v10.06c0 1.48.63 2.08 2.18 2.08h1.03c1.55 0 2.18-.6 2.18-2.08V8.459c0-1.48-.63-2.08-2.18-2.08Z"
+    />
+  </Svg>
+)
+
+const CommentIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      fill={
+        props.active ? "#1C44AC" : "#122D42"
+      }
+      d="M2 12.97V6.99C2 4.23 4.24 2 7 2h10c2.76 0 5 2.23 5 4.99v6.98c0 2.75-2.24 4.98-5 4.98h-1.5c-.31 0-.61.15-.8.4l-1.5 1.99c-.66.88-1.74.88-2.4 0l-1.5-1.99c-.16-.22-.52-.4-.8-.4H7c-2.76 0-5-2.23-5-4.98v-1Z"
+      opacity={0.4}
+    />
+    <Path
+      fill={
+        props.active ? "#1C44AC" : "#122D42"
+      }
+      d="M12 12c-.56 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.44 1-1 1Zm4 0c-.56 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.44 1-1 1Zm-8 0c-.56 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.44 1-1 1Z"
+    />
+  </Svg>
+)
+
+const ShareIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <G 
+      fill={props.active ? "#1C44AC" : "#122D42"}
+    >
+      <Path
+        d="M3.464 3.464C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536Z"
+        opacity={0.5}
+      />
+      <Path
+        fillRule="evenodd"
+        d="M16.47 1.47a.75.75 0 0 1 1.06 0l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H14c-1.552 0-2.467.757-2.788 1.08l-.19.191-.193.191c-.322.32-1.079 1.236-1.079 2.788v3a.75.75 0 0 1-1.5 0v-3c0-2.084 1.027-3.36 1.521-3.851l.19-.189.188-.189C10.64 7.277 11.916 6.25 14 6.25h6.19l-3.72-3.72a.75.75 0 0 1 0-1.06Z"
+        clipRule="evenodd"
+      />
+    </G>
+  </Svg>
+)
+
+const ContributorsIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      fill={props.active ? "#1C44AC" : "#122D42"}
+      d="M17.53 7.77a.739.739 0 0 0-.21 0 2.874 2.874 0 0 1-2.78-2.88C14.54 3.3 15.83 2 17.43 2c1.59 0 2.89 1.29 2.89 2.89a2.89 2.89 0 0 1-2.79 2.88Zm3.262 6.93c-1.12.75-2.69 1.03-4.14.84.38-.82.58-1.73.59-2.69 0-1-.22-1.95-.64-2.78 1.48-.2 3.05.08 4.18.83 1.58 1.04 1.58 2.75.01 3.8ZM6.438 7.77c.07-.01.14-.01.21 0a2.874 2.874 0 0 0 2.78-2.88C9.428 3.3 8.138 2 6.538 2c-1.59 0-2.89 1.29-2.89 2.89a2.89 2.89 0 0 0 2.79 2.88Zm.113 5.08c0 .97.21 1.89.59 2.72-1.41.15-2.88-.15-3.96-.86-1.58-1.05-1.58-2.76 0-3.81 1.07-.72 2.58-1.01 4-.85-.41.84-.63 1.79-.63 2.8Z"
+      opacity={0.4}
+    />
+    <Path
+      fill={props.active ? "#1C44AC" : "#122D42"}
+      d="M12.12 15.87a1.13 1.13 0 0 0-.26 0 3.425 3.425 0 0 1-3.31-3.43c0-1.9 1.53-3.44 3.44-3.44 1.9 0 3.44 1.54 3.44 3.44 0 1.86-1.46 3.37-3.31 3.43Zm-3.25 2.07c-1.51 1.01-1.51 2.67 0 3.67 1.72 1.15 4.54 1.15 6.26 0 1.51-1.01 1.51-2.67 0-3.67-1.71-1.15-4.53-1.15-6.26 0Z"
+    />
+  </Svg>
+)
+
+const SendButton = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size}
+    height={props.size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      fill={props.color}
+      d="m7.11 5.961 9.02-3.01c4.05-1.35 6.25.86 4.91 4.91l-3.01 9.02c-2.02 6.07-5.34 6.07-7.36 0l-.89-2.68-2.68-.89c-6.06-2.01-6.06-5.32.01-7.35Z"
+      opacity={0.4}
+    />
+    <Path
+      fill={props.color}
+      d="m12.12 11.629 3.81-3.82Zm0 .751c-.19 0-.38-.07-.53-.22a.754.754 0 0 1 0-1.06l3.8-3.82c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06l-3.8 3.82c-.15.14-.34.22-.53.22Z"  
+    />
+  </Svg>
+)
+
 export {
   HomeIcon,
   SearchIcon,
@@ -368,5 +485,10 @@ export {
   AirplaneSquareIcon,
   SecurityIcon,
   FileIcon,
-  RightArrowIcon
+  RightArrowIcon,
+  LikeIcon,
+  ShareIcon,
+  CommentIcon,
+  ContributorsIcon,
+  SendButton,
 } 

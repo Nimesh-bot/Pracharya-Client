@@ -22,7 +22,7 @@ module.exports = {
           0: "0px",
           xs: "4px",
           sm: "8px",
-          base: "12px",
+          default: "12px",
           lg: "16px",
           xl: "20px",
         },
@@ -30,7 +30,7 @@ module.exports = {
           0: "0px",
           xs: "4px",
           sm: "8px",
-          base: "12px",
+          default: "12px",
           lg: "16px",
           xl: "20px",
           "2xl": "40px",
@@ -50,39 +50,7 @@ module.exports = {
           white: "#ffffff",
           black: "#000000",
         },
-        width: {
-          "1": '4px',
-          "2": '8px',
-          "3": '12px',
-          "4": '16px',
-          "5": '20px',
-          "6": '24px',
-          "7": '28px',
-          "8": '32px',
-          "9": '36px',
-          "10": '40px',
-          "11": '44px',
-          "12": '48px',
-          "3/4": "75%",
-          "2/3": "66.666667%",
-          "11/12": "91.666667%",
-          "100": "100%",
-          "screen": "100vw",
-        },
-        gap: {
-          "none": "0px",
-          "xs": "4px",
-          "sm": "8px",
-          "default": "12px",
-          "md": "16px",
-          "lg": "20px",
-          "xl": "40px",
-        },
-        extends: {
-          height: {
-            "1": "100%",
-          }
-        }
+        extends: {}
     },
     plugins: [],
   };

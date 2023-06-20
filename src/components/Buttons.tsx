@@ -29,7 +29,22 @@ const TextButton = ({ text, additionalCss, additionalTextCss, ...otherProps }: B
   )
 }
 
+const IconButton = ({ icon, additionalCss, ...otherProps }: ButtonProps) => {
+  return (
+    <TouchableOpacity 
+      className={`py-xl px-base bg-blue rounded-default ${additionalCss}`} 
+      style={{
+        width: "auto"
+      }}
+      {...otherProps}
+    >
+      {icon}
+    </TouchableOpacity>
+  )
+}
+
 export {
     PrimaryButton,
-    TextButton
+    TextButton,
+    IconButton
 }

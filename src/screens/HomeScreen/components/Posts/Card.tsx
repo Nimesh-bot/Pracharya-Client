@@ -7,7 +7,9 @@ import { BookmarksIcon, RightArrowIcon } from '../../../../../assets/icons/svg-i
 import { SCREEN_WIDTH } from '../../../../libs/constants'
 
 const Card = ({ description, tag, contributors, fullContent}: PostCardProps) => {
-  const [source, setSource] = useState({} as any)
+  const [source, setSource] = useState({
+    html: ''
+  } as any)
   
   useEffect(() => {
     if(!fullContent) {

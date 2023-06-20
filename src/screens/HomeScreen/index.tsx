@@ -6,7 +6,7 @@ import Lists from './components/Posts/Lists'
 import DetailPopup from './components/Detail/DetailPopup'
 
 const HomeScreen = () => {
-  const [showDetail, setShowDetail] = useState(false)
+  const [showDetail, setShowDetail] = useState(true)
   return (
     <ScrollView
       contentContainerStyle={{
@@ -17,9 +17,9 @@ const HomeScreen = () => {
       }}
     >
       <AppBar />
-      <View className='p-xl w-1 justify-start flex-col mx-auto'>
+      <View className='p-xl w-full justify-start flex-col mx-auto'>
         <Grid />
-        {/* <Lists /> */}
+        <Lists />
       </View>
       {
         showDetail && <DetailPopup />
