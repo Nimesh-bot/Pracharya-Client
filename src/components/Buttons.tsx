@@ -4,7 +4,7 @@ import React from 'react'
 const PrimaryButton = ({ text, additionalCss, additionalTextCss, ...otherProps }: ButtonProps) => {
   return (
     <TouchableOpacity 
-      className={`py-xl px-base bg-blue rounded-default ${additionalCss}`} 
+      className={`py-lg px-base bg-blue rounded-default ${additionalCss}`} 
       style={{
         width: "auto"
       }}
@@ -18,7 +18,7 @@ const PrimaryButton = ({ text, additionalCss, additionalTextCss, ...otherProps }
 const TextButton = ({ text, additionalCss, additionalTextCss, ...otherProps }: ButtonProps) => {
   return (
     <TouchableOpacity 
-      className={`py-xl px-base bg-transparent rounded-default ${additionalCss}`} 
+      className={`py-lg px-base bg-transparent rounded-default ${additionalCss}`} 
       style={{
         width: "auto"
       }}
@@ -32,7 +32,7 @@ const TextButton = ({ text, additionalCss, additionalTextCss, ...otherProps }: B
 const IconButton = ({ icon, additionalCss, ...otherProps }: ButtonProps) => {
   return (
     <TouchableOpacity 
-      className={`py-xl px-base bg-blue rounded-default ${additionalCss}`} 
+      className={`py-lg px-base bg-blue rounded-default ${additionalCss}`} 
       style={{
         width: "auto"
       }}
