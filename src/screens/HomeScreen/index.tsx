@@ -1,12 +1,18 @@
 import { View, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+
+import { usePostDetailContext } from '../../context/PostDetailContextProvider'
+
 import AppBar from '../../components/AppBar'
 import Grid from './components/Categories/Grid'
 import Lists from './components/Posts/Lists'
 import DetailPopup from './components/Detail/DetailPopup'
 
 const HomeScreen = () => {
-  const [showDetail, setShowDetail] = useState(true)
+  const { isVisible } = usePostDetailContext();
+
+  console.log('isVisible', isVisible)
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -22,7 +28,7 @@ const HomeScreen = () => {
         <Lists />
       </View>
       {
-        showDetail && <DetailPopup />
+        isVisible && <DetailPopup />
       }
     </ScrollView>
   )

@@ -6,15 +6,32 @@ declare interface CategoryCardProps {
     index?: number;
 }
 
-interface ContributorsProps {
+declare type Contributors = {
     id: string;
-    name: string;
+    firstname: string;
+    middlename: string;
+    lastname: string;
     avatar: string;
 }
+
+declare type Category = {
+    id: number;
+    name: string;
+    iconname: string;
+}
+
+declare type Post = {
+    id: number;
+    category: string;
+    title: string;
+    content: string;
+    creators: Contributors[];
+    _count: {
+        like: number;
+        comment: number;
+    }
+}
 declare interface PostCardProps {
-    id?: string;
-    tag: string;
-    description: HTMLSource;
-    contributors: ContributorsProps[]; 
+    post: Post;
     fullContent?: boolean;
 }

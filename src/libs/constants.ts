@@ -71,8 +71,8 @@ export const categoryLists: any[] = [
 export const fakePosts: any[] = [
     {
         id: 1,
-        tag: "License",
-        description: `
+        category: "License",
+        content: `
             <p>The process of getting a driving license in Nepal is quite simple. You can get a driving license in Nepal by following the steps mentioned below.</p>
             <ul>
                 <li>First, you need to fill up the form for the driving license. You can get the form from the Department of Transport Management (DOTM) or you can download it from the official website of the DOTM.</li>
@@ -86,7 +86,7 @@ export const fakePosts: any[] = [
             <p>Link to the website</p>
             <a href="https://www.dotm.gov.np/" target="_blank">https://www.dotm.gov.np/</a>
         `,
-        contributors: [
+        creators: [
             {
                 id: 1,
                 name: "Sujan Shrestha",

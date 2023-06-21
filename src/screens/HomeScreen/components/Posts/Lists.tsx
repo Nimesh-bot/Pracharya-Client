@@ -9,10 +9,8 @@ const Lists = () => {
       {
         fakePosts.map((post, index) => (
             <Card 
-                key={index}
-                description={post.description}
-                tag={post.tag}
-                contributors={post.contributors}
+              key={index}
+              post={post}
             />
         ))
       }
