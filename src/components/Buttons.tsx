@@ -1,5 +1,12 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import React from 'react'
+
+interface ButtonProps extends TouchableOpacityProps{
+  text?: string;
+  additionalCss?: string;
+  additionalTextCss?: string;
+  icon?: JSX.Element;
+} 
 
 const PrimaryButton = ({ text, additionalCss, additionalTextCss, ...otherProps }: ButtonProps) => {
   return (

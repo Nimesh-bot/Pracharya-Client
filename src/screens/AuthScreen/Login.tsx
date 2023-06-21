@@ -1,11 +1,14 @@
 import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { RightArrowIcon } from '../../../assets/icons/svg-icons'
 import { InputFieldWithPrefix } from '../../components/InputFields'
 import { PrimaryButton } from '../../components/Buttons'
+import OPTVerification from './components/OPTVerification'
 
 const Login = ({ navigation }: any) => {
+    const [loginStep, setLoginStep] = useState(2)
+
     const handleNavigateBack = () => {
         navigation.navigate('Tab')
     }
@@ -26,18 +29,25 @@ const Login = ({ navigation }: any) => {
                 </View>
 
                 <View className='mt-2xl'>
-                    <View>
-                        <Text className='text-dark opacity-80 mb-sm'>Phone Number</Text>
-                        <InputFieldWithPrefix 
-                            prefix='+977'
-                            additionalCss='bg-white'
-                            keyboardType='phone-pad'
+                    {
+                        loginStep === 1 ?
+                        <View>
+                            <Text className='text-dark opacity-80 mb-sm'>Phone Number</Text>
+                            <InputFieldWithPrefix 
+                                prefix='+977'
+                                additionalCss='bg-white'
+                                keyboardType='phone-pad'
+                            />
+                            <PrimaryButton
+                                text='Verify'
+                                additionalCss='mt-2xl'
+                            />
+                        </View>
+                        :
+                        <OPTVerification 
+                            phone='9841234567'
                         />
-                        <PrimaryButton
-                            text='Verify'
-                            additionalCss='mt-2xl'
-                        />
-                    </View>
+                    }
                 </View>
             </View>
 
@@ -49,7 +59,6 @@ const Login = ({ navigation }: any) => {
                     <Text className='text-blue font-bold ml-xs'>Register</Text>
                 </Pressable>
                 <Text className='text-dark opacity-80 ml-xs'>for Free</Text>
-
             </View>
         </View>
     )
