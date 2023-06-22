@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461382756387",
+    "project_id": "pracharya-otp",
+    "storage_bucket": "pracharya-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461382756387:android:8ff364c61c7b26e7e46996",
+        "android_client_info": {
+          "package_name": "com.pracharya.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461382756387-v7gptpmruhru4illvi4jqkjo5lja2oia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_L89AulruFcv0KIyPVEZBPBDLDjuMZrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461382756387-v7gptpmruhru4illvi4jqkjo5lja2oia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
