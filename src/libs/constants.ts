@@ -97,7 +97,54 @@ export const fakePosts: any[] = [
                 name: "Sujan Shrestha",
                 avatar: "https://i.pinimg.com/236x/06/ae/b9/06aeb9d470ae7e23bf5961d9ed94f0ba.jpg"
             }
+        ],
+        comments: [
+            {
+                id: 1,
+                content: "Can anyone expand the contents of form?",
+                commentor: {
+                    id: 1,
+                    name: "Sujan Shrestha",
+                    avatar: "https://i.pinimg.com/236x/41/4a/8f/414a8f01843d1c2ce7550d80171a0d2c.jpg"
+                },
+                commentedAt: "2021-05-01T12:00:00.000Z",
+                replies: [
+                    {
+                        id: 1,
+                        content: "You can download the form from the official website of the DOTM.",
+                        replier: {
+                            id: 2,
+                            name: "Samikshya Sthapit",
+                            avatar: "https://i.pinimg.com/236x/06/ae/b9/06aeb9d470ae7e23bf5961d9ed94f0ba.jpg"
+                        },
+                        repliedAt: "2021-05-02T12:05:00.000Z"
+                    },
+                    {
+                        id: 2,
+                        content: "Looks like link is broken currently",
+                        replier: {
+                            id: 2,
+                            name: "Samikshya Sthapit",
+                            avatar: "https://i.pinimg.com/236x/06/ae/b9/06aeb9d470ae7e23bf5961d9ed94f0ba.jpg"
+                        },
+                        repliedAt: "2021-05-02T12:05:00.000Z"
+                    }
+                ]
+            }
         ]
+    }
+]
+
+export const fakeUsers = [
+    {
+        id: 1,
+        name: "Sujan Shrestha",
+        avatar: "https://i.pinimg.com/236x/41/4a/8f/414a8f01843d1c2ce7550d80171a0d2c.jpg"
+    },
+    {
+        id: 2,
+        name: "Samikshya Sthapit",
+        avatar: "https://i.pinimg.com/236x/06/ae/b9/06aeb9d470ae7e23bf5961d9ed94f0ba.jpg"
     }
 ]
 

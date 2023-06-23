@@ -1,10 +1,14 @@
-import { View, Text, TextInput, TextInputProps } from 'react-native'
+import { View, Text, TextInput, TextInputProps, Pressable } from 'react-native'
 import React from 'react'
+
+import { CloseIcon } from '../../assets/icons/svg-icons';
 
 interface InputProps extends TextInputProps {
   placeholder?: string;
   additionalCss?: string;
   prefix?: string | JSX.Element;
+  isReplying?: boolean;
+  handleCancelReply?: () => void;
 }
 
 const PlainInputField = ({ additionalCss, ...otherProps}: InputProps) => {
@@ -14,6 +18,26 @@ const PlainInputField = ({ additionalCss, ...otherProps}: InputProps) => {
         {...otherProps}
     >
     </TextInput>
+  )
+}
+
+const CommentInputField = ({ additionalCss, isReplying, handleCancelReply, ...otherProps}: InputProps) => {
+  return (
+    <View className='relative flex-1'>
+      <TextInput 
+        className={`flex-1 py-default px-xl rounded-default bg-light ${additionalCss}`}
+        {...otherProps}
+      >
+      </TextInput>
+      {
+        isReplying &&
+        <View className='absolute right-0 top-0 bottom-0 flex-row items-center px-default'>
+          <Pressable onPress={handleCancelReply}>
+            <CloseIcon size={24} color={'#1C44AC'} />
+          </Pressable>
+        </View>
+      }
+    </View>
   )
 }
 
@@ -31,5 +55,6 @@ const InputFieldWithPrefix = ({ prefix, additionalCss, ...otherProps}: InputProp
 }
 
 export {
-  PlainInputField, InputFieldWithPrefix
+  PlainInputField, InputFieldWithPrefix,
+  CommentInputField
 }

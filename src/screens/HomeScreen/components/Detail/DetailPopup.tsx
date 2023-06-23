@@ -8,6 +8,7 @@ import { fakePosts } from '../../../../libs/constants';
 import Interactions from './Interactions';
 import PostComment from './PostComment';
 import { usePostDetailContext } from '../../../../context/PostDetailContextProvider';
+import Comments from './Comments';
 
 
 const DetailPopup = () => {
@@ -29,7 +30,11 @@ const DetailPopup = () => {
                 tint='light'
                 intensity={80}
             >
-                <ScrollView>
+                <ScrollView
+                    contentContainerStyle={{
+                        paddingBottom: 20
+                    }}
+                >
                     <View className='w-full flex-1 mt-3xl rounded-t-lg bg-white flex-col p-xl'>
                         <Pressable className='flex-row items-center' onPress={() => {
                             setIsVisible(false)
@@ -48,6 +53,14 @@ const DetailPopup = () => {
                             setCommentShown={setCommentShown}
                         />
                         <PostComment />
+                        {
+                            fakePosts[0].comments.map((comment: any, index: number) => (
+                                <Comments
+                                    comment={comment}
+                                    key={index}
+                                />
+                            ))
+                        }
                     </View>
                 </ScrollView>
             </BlurView>
