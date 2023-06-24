@@ -1,8 +1,6 @@
 import { Dimensions } from "react-native";
 import Constants from "expo-constants";
 
-import { AirplaneSquareIcon, CarIcon, MenuIcon, PersonalCardIcon, SecurityIcon } from "../../assets/icons/svg-icons";
-
 export const SCREEN_HEIGHT = Dimensions.get("screen").height; // device height
 export const WINDOW_HEIGHT = Dimensions.get("window").height;
 export const SCREEN_WIDTH = Dimensions.get("screen").width; // device width
@@ -146,6 +144,15 @@ export const fakeUsers = [
         name: "Samikshya Sthapit",
         avatar: "https://i.pinimg.com/236x/06/ae/b9/06aeb9d470ae7e23bf5961d9ed94f0ba.jpg"
     }
+]
+
+export const defaultAvatars = [
+    require("../../assets/avatars/avatarBlue.png"),
+    require("../../assets/avatars/avatarPink.png"),
+    require("../../assets/avatars/avatarGreen.png"),
+    require("../../assets/avatars/avatarYellow.png"),
+    require("../../assets/avatars/avatarRed.png"),
+    require("../../assets/avatars/avatarDark.png"),
 ]
 
 export const STATUS_BAR_HEIGHT = Constants.statusBarHeight;

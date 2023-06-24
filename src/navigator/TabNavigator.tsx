@@ -8,8 +8,7 @@ import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CreateScreen from "../screens/CreateScreen";
 import BookmarksScreen from "../screens/BookmarksScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import { BlurView } from "expo-blur";
+import ProfileStackNavigator from "./ProfileStackNavigator";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -38,7 +37,7 @@ const TabNavigator = () => {
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Create" component={CreateScreen} />
         <Tab.Screen name="Bookmarks" component={BookmarksScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="ProfileStack" component={ProfileStackNavigator} />
     </Tab.Navigator>
   );
 };

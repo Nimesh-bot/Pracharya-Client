@@ -2,8 +2,9 @@ import { ScrollView, View, Text } from 'react-native'
 import React from 'react'
 import AppBar from '../../components/AppBar'
 import UserCard from './components/UserCard'
+import AccountDetails from './components/AccountDetails'
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }: any) => {
   return (
     <ScrollView
       contentContainerStyle={{
@@ -14,8 +15,11 @@ const ProfileScreen = () => {
       }}
     >
       <AppBar />
-      <View className='p-xl w-full justify-start flex-col mx-auto'>
+      <View className='p-xl h-full w-full justify-start flex-col mx-auto'>
         <UserCard />
+        <AccountDetails 
+          navigation={navigation}
+        />
       </View>
     </ScrollView>
   )

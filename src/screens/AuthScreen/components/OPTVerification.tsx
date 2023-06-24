@@ -4,9 +4,10 @@ import { PrimaryButton } from '../../../components/Buttons';
 
 interface OPTVerificationProps {
   phone: string
+  additionalCss?: string
 }
 
-const OPTVerification = ({ phone }: OPTVerificationProps) => {
+const OPTVerification = ({ phone, additionalCss }: OPTVerificationProps) => {
   const otpFieldsPerScreen = 4;
   const [otpCodes, setOtpCodes] = useState(Array(otpFieldsPerScreen).fill(""));
   const textInputRefs = useRef<(null | TextInput)[]>([
@@ -79,7 +80,7 @@ const OPTVerification = ({ phone }: OPTVerificationProps) => {
                   if (KeyValue === "Backspace") handleBack(index);
                   else handleNext(index);
                 }}
-                className="px-xl py-lg rounded-sm flex text-lg bg-white text-center font-medium text-blue focus:border-blue"
+                className={`px-xl py-lg rounded-sm flex text-lg bg-white text-center font-medium text-blue focus:border-blue ${additionalCss}`}
               />
             ))
           }
