@@ -30,11 +30,6 @@ export const monthNames: string[] = [
 
 export const categoryLists: any[] = [
     {
-        id: 1,
-        name: "All",
-        icon: 'menu',
-    },
-    {
         id: 2,
         name: "License",
         iconName: 'car',

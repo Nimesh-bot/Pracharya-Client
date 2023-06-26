@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import React from 'react'
 import { categoryLists } from '../../../../libs/constants'
 
@@ -18,6 +18,13 @@ const Grid = () => {
                 flexShrink: 0,
             }}
         >
+            <Card
+                icon={'menu'}
+                title={'All'}
+                active={selected === 1}
+                onPress={() => setSelected(1)}
+                additionalCss={'ml-0'}
+            />
             {
                 categoryLists.map((category, index) => (
                     <Card
