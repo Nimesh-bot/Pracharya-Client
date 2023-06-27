@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import { PostContext } from '../@types/post.context';
 
 export const PostDetailContext = createContext<PostContext>({} as PostContext);
 
@@ -10,9 +9,13 @@ type Props = {
 export const PostDetailContextProvider = ({ children }: Props) => {
     const [post, setPost] = useState<any>({});
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [replying, setReplying] = useState<ReplyingProps>({
+        isReplying: false,
+        replyingTo: ''
+    });
 
     return (
-        <PostDetailContext.Provider value={{ post, setPost, isVisible, setIsVisible }}>
+        <PostDetailContext.Provider value={{ post, setPost, isVisible, setIsVisible, replying, setReplying }}>
             {children}
         </PostDetailContext.Provider>
     )

@@ -12,8 +12,8 @@ const AppBar = () => {
           className='w-full h-full object-contain mix-blend-multiply'
         />
       </View>
-      <View className='rounded-md bg-white w-8 h-8 flex justify-center items-center'>
-        <SettingsIcon width={24} height={24} active={true} />
+      <View className='rounded-md bg-white p-default flex justify-center items-center'>
+        <SettingsIcon size={24} active={true} />
       </View>
     </View>
   )

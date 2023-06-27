@@ -4,6 +4,7 @@ declare interface CategoryCardProps {
     active?: boolean;
     onPress?: () => void;
     index?: number;
+    additionalCss?: any;
 }
 
 declare type Contributors = {

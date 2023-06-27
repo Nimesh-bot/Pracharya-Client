@@ -2,7 +2,7 @@ import { TouchableOpacity, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AirplaneSquareIcon, CarIcon, FileIcon, MenuIcon, PersonalCardIcon, SecurityIcon } from '../../../../../assets/icons/svg-icons'
 
-const Card = ({ icon, title, active, onPress, index }: CategoryCardProps) => {
+const Card = ({ icon, title, active, onPress, index, additionalCss, }: CategoryCardProps) => {
   const [categoryIcon, setCategoryIcon] = useState('' as any)
 
   useEffect(() => {
@@ -24,11 +24,8 @@ const Card = ({ icon, title, active, onPress, index }: CategoryCardProps) => {
 
   return (
     <TouchableOpacity 
-      className='flex-col w-[80px] h-[80px] p-sm rounded-md bg-white items-center justify-center flex-shrink-0' 
+      className={`flex-col w-[80px] h-[80px] p-sm rounded-md ml-lg bg-white items-center justify-center flex-shrink-0 ${additionalCss}`}
       onPress={onPress}
-      style={{
-        marginLeft: (index === 0) ? 0 : 16,
-      }}
     >
         {categoryIcon}
         <Text className={`text-sm font-light ${active ? 'text-blue' : 'text-dark'}`}>
