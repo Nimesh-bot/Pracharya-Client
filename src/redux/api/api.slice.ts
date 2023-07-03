@@ -4,7 +4,7 @@ import { authorize, unauthorize } from "../features/auth/auth.slice";
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://prachaya-test-back.onrender.com',
+    baseUrl: 'https://prachaya-test-back.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.access;
       if (token) {
