@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import TabNavigator from './TabNavigator';
 import Login from '../screens/AuthScreen/Login';
 import Register from '../screens/AuthScreen/Register';
+import AdminTabNavigator from './AdminTabNavigator';
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ const StackNavigator = () => {
             headerShown: false
         }}>
             <Stack.Screen name="Tab" component={TabNavigator} />
+            <Stack.Screen name="AdminTab" component={AdminTabNavigator} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
