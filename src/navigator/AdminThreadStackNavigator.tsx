@@ -13,7 +13,7 @@ const _AdminThreadStackNavigator = () => {
             headerShown: false
         }}>
             <AdminThreadStack.Screen name="ThreadList" component={_AdminThreadList} />
-            <AdminThreadStack.Screen name="CreateForm" component={_AdminThreadDetail} />
+            <AdminThreadStack.Screen name="ThreadDetail" component={_AdminThreadDetail} />
         </AdminThreadStack.Navigator>
     )
 }

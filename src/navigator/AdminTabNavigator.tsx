@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import TabNavigationIcons from "../../assets/icons/tabNavigation-icons";
 import tailwindConfig from "../../tailwind.config";
 import _AdminHomeScreen from "../screens/_Admin/_HomeScreen";
 import _AdminThreadStackNavigator from "./AdminThreadStackNavigator";
+import AdminTabNavigationIcons from "../../assets/icons/adminTabNavigationIcons";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -25,7 +25,7 @@ const TabNavigator = () => {
         },
         tabBarShowLabel: false,
         tabBarIcon: ({ focused }) => {
-          return <TabNavigationIcons name={route.name} size={24} active={focused} />
+          return <AdminTabNavigationIcons name={route.name} size={24} active={focused} />
         },
       })}
     >
