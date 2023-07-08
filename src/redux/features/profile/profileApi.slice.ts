@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithoutErrorHandling } from 'src/redux/api/api.slice';
+import { baseQueryWithoutErrorHandling } from '../../../redux/api/api.slice';
 
 export const profileApi = createApi({
     reducerPath: 'profileApi',

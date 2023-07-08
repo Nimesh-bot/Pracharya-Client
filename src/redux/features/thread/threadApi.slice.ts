@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithoutErrorHandling } from 'src/redux/api/api.slice';
+import { baseQueryWithoutErrorHandling } from '../../api/api.slice';
 
 export const threadApi = createApi({
     reducerPath: 'threadApi',
@@ -28,3 +28,9 @@ export const threadApi = createApi({
         }),
     })
 })
+
+export const { 
+    useGetThreadsByCategoryQuery, 
+    useGetThreadByIdQuery, 
+    useCreateThreadMutation 
+} = threadApi;

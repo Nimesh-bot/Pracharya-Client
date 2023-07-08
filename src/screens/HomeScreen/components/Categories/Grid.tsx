@@ -3,9 +3,13 @@ import React from 'react'
 import { categoryLists } from '../../../../libs/constants'
 
 import Card from './Card'
+import { useGetCategoriesQuery } from '../../../../redux/features/category/categoryApi.slice'
 
 const Grid = () => {
     const [selected, setSelected] = React.useState(1)
+    const { data: categories } = useGetCategoriesQuery();
+
+    console.log('categories', categories);
 
     return (
         <ScrollView

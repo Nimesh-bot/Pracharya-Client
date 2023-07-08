@@ -16,12 +16,14 @@ import { apiSlice } from "./api/api.slice";
 import AuthReducer from "./features/auth/auth.slice";
 import { profileApi } from "./features/profile/profileApi.slice";
 import { threadApi } from "./features/thread/threadApi.slice";
+import { categoryApi } from "./features/category/categoryApi.slice";
 
 const reducers = combineReducers({
   auth: AuthReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
   [threadApi.reducerPath]: threadApi.reducer,
   [profileApi.reducerPath]: profileApi.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer,
 });
 
 const persistConfig = {
@@ -48,6 +50,7 @@ export const store = configureStore({
     .concat(apiSlice.middleware)
     .concat(threadApi.middleware)
     .concat(profileApi.middleware)
+    .concat(categoryApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
