@@ -7,6 +7,12 @@ declare interface CategoryCardProps {
     additionalCss?: any;
 }
 
+declare interface CategoryProps {
+    iconname: string;
+    id: number;
+    name: string;
+}
+
 declare type Contributors = {
     id: string;
     firstname: string;

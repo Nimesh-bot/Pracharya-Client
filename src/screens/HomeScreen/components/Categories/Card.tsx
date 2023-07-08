@@ -28,7 +28,7 @@ const Card = ({ icon, title, active, onPress, index, additionalCss, }: CategoryC
       onPress={onPress}
     >
         {categoryIcon}
-        <Text className={`text-sm font-light ${active ? 'text-blue' : 'text-dark'}`}>
+        <Text className={`text-sm mt-1 font-light ${active ? 'text-blue' : 'text-dark'}`}>
             {title}
         </Text>
     </TouchableOpacity>

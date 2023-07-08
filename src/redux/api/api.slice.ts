@@ -6,17 +6,19 @@ import { RootState } from "../store";
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://prachaya-test-back.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.access;
-      if (token) {
-        headers.set("authorization", `${token}`);
-      }
+      // const token = (getState() as RootState).auth.access;
+      // if (token) {
+      //   headers.set("authorization", `${token}`);
+      // }
       return headers;
     },
 });
 
 export const baseQueryWithoutErrorHandling = async ( args: any, api: any, extraOptions: any ) => {
+  console.log('before API')
   const result = await baseQuery(args, api, extraOptions);
-
+  console.log('result', result)
+  
   if (result.data) {
     if (args.method !== "GET" && typeof args !== "string")
       console.log("API success:", args.typePrefix);
@@ -61,7 +63,7 @@ export const baseQueryWithErrorHandling = async ( args: any, api: any, extraOpti
 };
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQueryWithoutErrorHandling,
   reducerPath: "api",
   endpoints: (builder) => ({}),
 });

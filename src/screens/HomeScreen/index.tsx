@@ -11,8 +11,6 @@ import DetailPopup from './components/Detail/DetailPopup'
 const HomeScreen = () => {
   const { isVisible } = usePostDetailContext();
 
-  console.log('isVisible', isVisible)
-
   return (
     <ScrollView
       contentContainerStyle={{

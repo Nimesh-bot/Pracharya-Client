@@ -6,9 +6,9 @@ export const categoryApi = createApi({
     baseQuery: baseQueryWithoutErrorHandling,
     tagTypes: ['Category'],
     endpoints: (builder) => ({
-        getCategories: builder.query<any, void>({
+        getCategories: builder.query<CategoryProps[], void>({
             query: () => ({
-                url: `categories/get_categories`,
+                url: `category/get_category`,
                 method: 'GET',
             }),
             providesTags: ['Category'],
