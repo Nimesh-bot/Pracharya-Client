@@ -15,9 +15,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const baseQueryWithoutErrorHandling = async ( args: any, api: any, extraOptions: any ) => {
-  console.log('before API')
   const result = await baseQuery(args, api, extraOptions);
-  console.log('result', result)
   
   if (result.data) {
     if (args.method !== "GET" && typeof args !== "string")

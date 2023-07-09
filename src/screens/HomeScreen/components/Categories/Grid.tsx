@@ -1,12 +1,11 @@
 import { ScrollView, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { categoryLists } from '../../../../libs/constants'
+import React, { useEffect, useState } from 'react'
 
 import Card from './Card'
 import { useGetCategoriesQuery } from '../../../../redux/features/category/categoryApi.slice'
 
 const Grid = () => {
-    const [selected, setSelected] = React.useState(0)
+    const [selected, setSelected] = useState(0)
     const { data: categories } = useGetCategoriesQuery();
 
     return (

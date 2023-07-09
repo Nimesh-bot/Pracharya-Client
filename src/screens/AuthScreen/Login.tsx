@@ -7,7 +7,7 @@ import { PrimaryButton } from '../../components/Buttons'
 import OPTVerification from './components/OPTVerification'
 
 const Login = ({ navigation }: any) => {
-    const [loginStep, setLoginStep] = useState(2)
+    const [loginStep, setLoginStep] = useState(1)
 
     const handleNavigateBack = () => {
         navigation.navigate('Tab')

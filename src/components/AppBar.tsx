@@ -4,9 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 
 import { LogoutIcon } from '../../assets/icons/svg-icons'
 import tailwindConfig from '../../tailwind.config'
+import { RootState } from '../redux/store'
+import { useAppSelector } from '../redux/hooks'
 
 const AppBar = () => {
   const navigation = useNavigation<any>()
+  const { isLoggedIn } = useAppSelector((state: RootState) => state.auth)
 
   const primaryColor = (tailwindConfig.theme as any).colors.blue
 
@@ -25,6 +28,9 @@ const AppBar = () => {
           navigation.navigate('AdminTab')
         }}
       >
+        {
+
+        }
         <LogoutIcon size={24} color={primaryColor} />
       </TouchableOpacity>
     </View>
