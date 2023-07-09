@@ -21,12 +21,6 @@ export const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            async onCacheEntryAdded(arg, { dispatch, cacheDataLoaded }) {
-                const { data } = await cacheDataLoaded
-                if (data.access_token) {
-                    dispatch(authorize({ ...data, user: undefined }));
-                }
-            }
         }),
         signUp: builder.mutation({
             query: (data) => ({

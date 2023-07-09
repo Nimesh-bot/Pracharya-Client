@@ -8,6 +8,8 @@ const Grid = () => {
     const [selected, setSelected] = useState(0)
     const { data: categories } = useGetCategoriesQuery();
 
+    console.log('categories', categories)
+
     return (
         <ScrollView
             horizontal={true}
