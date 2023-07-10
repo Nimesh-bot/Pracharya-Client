@@ -1,5 +1,5 @@
 import { View, Text, Pressable, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 
 import { RightArrowIcon } from '../../../assets/icons/svg-icons'
 import { InputFieldWithPrefix } from '../../components/InputFields'
@@ -7,9 +7,77 @@ import { PrimaryButton } from '../../components/Buttons'
 
 import RegisterInfo from './components/RegisterInfo'
 import RegisterPhone from './components/RegisterPhone'
+import { Dispatch } from '@reduxjs/toolkit'
+import OPTVerification from './components/OPTVerification'
+
+import { useVerifyOtpMutation } from '../../redux/features/auth/authApi.slice';
+import Toast from 'react-native-toast-message'
+
+export interface IRegisterInfo {
+  firstname: string
+  middlename: string
+  lastname: string
+  email: string
+  dob: Date
+  mobile_number: string
+  code: string
+  step: number
+}
+export interface RegisterProps {
+  registerInfo: IRegisterInfo
+  setRegisterInfo: Function
+}
 
 const Register = ({ navigation }: any) => {
-  const [registerStep, setRegisterStep] = useState(2)
+  const [registerInfo, setRegisterInfo] = useState<IRegisterInfo>({
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    email: '',
+    dob: new Date(),
+    mobile_number: '',
+    code: '',
+    step: 3,
+  })
+
+  const [ verifyOTP, { data, isLoading } ] = useVerifyOtpMutation()
+  const [error, setError] = useState('')
+
+  const handleOTPVerification = (input_code: string) => {
+    setError('')
+    if(input_code.length !== 4) {
+      setError('Please enter the 4 digit OTP sent to your phone number')
+    } else if(registerInfo.code !== input_code) {
+      console.log('here')
+      setError('Invalid OTP')
+    } else {
+      const payload = {
+        mobile_number: registerInfo.mobile_number,
+        otp: input_code,
+        type: 'signup'
+      }
+      verifyOTP(payload).unwrap().then((res) => {
+        Toast.show({
+          type: 'success',
+          text1: 'Verified',
+          text2: 'Phone number verified successfully. Redirecting to final step in 3 seconds',
+        })
+        setTimeout(() => {
+          setRegisterInfo({
+            ...registerInfo,
+            step: 3
+          })
+        }, 3000)  
+      }).catch((err) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: err.data.message || 'Something went wrong. Please try again later',
+        })
+      })
+    }
+  }
+
 
   return (
     <KeyboardAvoidingView 
@@ -33,10 +101,23 @@ const Register = ({ navigation }: any) => {
 
         <View className='mt-2xl'>
           {
-            registerStep === 1 ?
-            <RegisterInfo />
+            registerInfo.step === 1 ?
+            <RegisterPhone 
+              registerInfo={registerInfo}
+              setRegisterInfo={setRegisterInfo}
+            />
             :
-            <RegisterPhone />
+            registerInfo.step === 2 ?
+            <OPTVerification
+              phone={registerInfo.mobile_number}
+              error={error}
+              handleOTPVerification={(input_code: string) => handleOTPVerification(input_code)}
+            />
+            :
+            <RegisterInfo 
+              registerInfo={registerInfo}
+              setRegisterInfo={setRegisterInfo}
+            />
           }
         </View>
       </View>

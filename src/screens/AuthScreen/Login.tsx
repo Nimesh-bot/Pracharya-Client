@@ -6,12 +6,61 @@ import { InputFieldWithPrefix } from '../../components/InputFields'
 import { PrimaryButton } from '../../components/Buttons'
 import OPTVerification from './components/OPTVerification'
 
+import { useVerifyPhoneMutation } from '../../redux/features/auth/authApi.slice'
+
 const Login = ({ navigation }: any) => {
     const [loginStep, setLoginStep] = useState(1)
+    const [ verifyPhone, { data, isLoading } ] = useVerifyPhoneMutation()
+
+    const [phone_number, setPhoneNumber] = useState('')
+    const [error, setError] = useState('')
+    const [responses, setResponses] = useState({
+        verifyPhone: {
+            msg: '',
+            user_exists: false,
+            type: '',
+            code: ''
+        },
+        verifyOTP: {
+            email: '',
+            phone_number: '',
+            firstname: '',
+            lastname: '',
+            access_token: '',
+            refresh_token: '',
+        }
+    })
 
     const handleNavigateBack = () => {
         navigation.navigate('Tab')
     }
+
+    const handlePhoneVerification = () => {
+        if(phone_number.length !== 10 || phone_number.match(/[a-z]/i)) {
+            setError('Valid phone number must be 10 digits long')
+            return
+        }
+        setError('')
+        const payload = {
+            phone_number: phone_number
+        }
+        verifyPhone(payload).unwrap().then((res: Authentication.VerifyPhoneResponse) => {
+            if(res.user_exists) {
+                setResponses({
+                    ...responses,
+                    verifyPhone: {
+                        msg: res.msg,
+                        user_exists: res.user_exists,
+                        type: res.type,
+                        code: res.code
+                    }
+                })
+                setLoginStep(2)
+            } else {
+                setError(res.msg)
+            }
+        })
+    }   
 
     return (
         <View className='p-xl w-full flex-col justify-between flex-1'>
@@ -35,17 +84,28 @@ const Login = ({ navigation }: any) => {
                             <Text className='text-dark opacity-80 mb-sm'>Phone Number</Text>
                             <InputFieldWithPrefix 
                                 prefix='+977'
-                                additionalCss='bg-white'
+                                additionalCss={`bg-white ${error !== '' && 'border border-red'}`}
                                 keyboardType='phone-pad'
+                                value={phone_number}
+                                onChangeText={(text: string) => {
+                                    setPhoneNumber(text);
+                                }}
                             />
+                            {
+                                error &&
+                                <Text className='text-red text-sm mt-xs'>{error}</Text>
+                            }
                             <PrimaryButton
                                 text='Verify'
                                 additionalCss='mt-2xl'
+                                onPress={handlePhoneVerification}
                             />
                         </View>
                         :
                         <OPTVerification 
                             phone='9841234567'
+                            handleOTPVerification={() => {}}
+                            error=""
                         />
                     }
                 </View>

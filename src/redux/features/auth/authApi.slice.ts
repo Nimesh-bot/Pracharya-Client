@@ -8,7 +8,7 @@ export const authApi = createApi({
     baseQuery: baseQueryWithoutErrorHandling,
     tagTypes: ["Auth"],
     endpoints: (builder) => ({
-        verifyPhone: builder.mutation({
+        verifyPhone: builder.mutation<any, any>({
             query: (data) => ({
                 url: `auth/number_verify`,
                 method: "POST",

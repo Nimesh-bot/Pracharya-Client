@@ -18,10 +18,12 @@ import { profileApi } from "./features/profile/profileApi.slice";
 import { threadApi } from "./features/thread/threadApi.slice";
 import { categoryApi } from "./features/category/categoryApi.slice";
 import UserReducer from "./features/user/user.slice";
+import { authApi } from "./features/auth/authApi.slice";
 
 const reducers = combineReducers({
   auth: AuthReducer,
   user: UserReducer,
+  [authApi.reducerPath]: authApi.reducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
   [threadApi.reducerPath]: threadApi.reducer,
   [profileApi.reducerPath]: profileApi.reducer,
