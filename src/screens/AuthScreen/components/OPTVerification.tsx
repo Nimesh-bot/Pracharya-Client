@@ -10,7 +10,7 @@ import { useVerifyOtpMutation } from '../../../redux/features/auth/authApi.slice
 interface OPTVerificationProps {
   phone: string
   additionalCss?: string
-  handleOTPVerification: (otp: string) => void
+  handleOTPVerification: (code: string) => void
   error: string
 }
 

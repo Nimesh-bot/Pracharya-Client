@@ -43,6 +43,7 @@ const Register = ({ navigation }: any) => {
 
   const [ verifyOTP, { data, isLoading } ] = useVerifyOtpMutation()
   const [error, setError] = useState('')
+  
 
   const handleOTPVerification = (input_code: string) => {
     console.log('here', )
