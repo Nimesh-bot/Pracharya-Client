@@ -51,6 +51,7 @@ const Register = ({ navigation }: any) => {
     if(input_code.length !== 6) {
       setError('Please enter the 6 digit OTP sent to your phone number')
     } else if(registerInfo.code !== input_code) {
+      console.log(registerInfo.code, input_code)
       console.log('here')
       setError('Invalid OTP')
     } else {

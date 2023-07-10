@@ -50,6 +50,7 @@ const RegisterPhone = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
       setTimeout(() => {
         setRegisterInfo({
           ...registerInfo,
+          code: res.code,
           step: 2
         })
       }, 3000)

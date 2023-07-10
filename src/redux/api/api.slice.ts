@@ -5,7 +5,7 @@ import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
     // baseUrl: 'https://prachaya-test-back.onrender.com/',
-    baseUrl: 'https://a734-202-51-76-77.in.ngrok.io',
+    baseUrl: 'https://3d60-202-51-76-77.in.ngrok.io',
     prepareHeaders: (headers, { getState }) => {
       // const token = (getState() as RootState).auth.access;
       // if (token) {
