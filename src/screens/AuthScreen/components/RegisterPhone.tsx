@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message'
 import { InputFieldWithPrefix } from '../../../components/InputFields'
 import { PrimaryButton } from '../../../components/Buttons'
 import { RegisterProps } from '../Register'
+import LoadingIndicator from '../../../components/LoadingIndicator'
 
 import { useVerifyPhoneMutation } from '../../../redux/features/auth/authApi.slice'
 
@@ -23,8 +24,10 @@ const RegisterPhone = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
     }
     setError('')
  
+    console.log('payload', payload)
+
     verifyPhone({
-      phone_number: registerInfo.mobile_number
+      mobile_number: registerInfo.mobile_number
     }).unwrap().then((res: Authentication.VerifyPhoneResponse) => {
       if(res.user_exists) {
         setError(
@@ -36,6 +39,7 @@ const RegisterPhone = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
         ...registerInfo,
         code: res.code
       })
+      console.log('response', res)
       Toast.show({
         type: 'success',
         text1: 'OTP sent to your phone number',
@@ -54,30 +58,38 @@ const RegisterPhone = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
 
   return (
     <View>
-        <View>
-            <Text className='text-dark opacity-80 mb-sm'>Phone Number</Text>
-            <InputFieldWithPrefix 
-              prefix='+977'
-              additionalCss='bg-white'
-              keyboardType='phone-pad'
-              value={registerInfo.mobile_number}
-              onChange={(e) => {
-                setRegisterInfo({
-                  ...registerInfo,
-                  mobile_number: e.nativeEvent.text
-                })
-              }}
-            />
-            {
-              error !== '' &&
-              <Text className='text-red text-sm mt-xs'>{error}</Text>
-            }
-        </View>
-        <PrimaryButton
-          text='Verify'
-          additionalCss='mt-2xl'
-          onPress={handleVerifyPhone}
+      <View>
+          <Text className='text-dark opacity-80 mb-sm'>Phone Number</Text>
+          <InputFieldWithPrefix 
+            prefix='+977'
+            additionalCss='bg-white'
+            keyboardType='phone-pad'
+            value={registerInfo.mobile_number}
+            onChange={(e) => {
+              setRegisterInfo({
+                ...registerInfo,
+                mobile_number: e.nativeEvent.text
+              })
+            }}
+          />
+          {
+            error !== '' &&
+            <Text className='text-red text-sm mt-xs'>{error}</Text>
+          }
+      </View>
+      <PrimaryButton
+        text='Verify'
+        additionalCss='mt-2xl'
+        onPress={handleVerifyPhone}
+      />
+      {
+        isLoading &&
+        <LoadingIndicator
+          text='Verifying phone number'
+          subText='Please wait while we verify your phone number'
         />
+
+      }
     </View>
   )
 }

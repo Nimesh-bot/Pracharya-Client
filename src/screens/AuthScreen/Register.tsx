@@ -1,4 +1,4 @@
-import { View, Text, Pressable, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import React, { SetStateAction, useState } from 'react'
 
 import { RightArrowIcon } from '../../../assets/icons/svg-icons'
@@ -12,6 +12,7 @@ import OPTVerification from './components/OPTVerification'
 
 import { useVerifyOtpMutation } from '../../redux/features/auth/authApi.slice';
 import Toast from 'react-native-toast-message'
+import LoadingIndicator from '../../components/LoadingIndicator'
 
 export interface IRegisterInfo {
   firstname: string
@@ -37,16 +38,17 @@ const Register = ({ navigation }: any) => {
     dob: new Date(),
     mobile_number: '',
     code: '',
-    step: 3,
+    step: 1,
   })
 
   const [ verifyOTP, { data, isLoading } ] = useVerifyOtpMutation()
   const [error, setError] = useState('')
 
   const handleOTPVerification = (input_code: string) => {
+    console.log('here', )
     setError('')
-    if(input_code.length !== 4) {
-      setError('Please enter the 4 digit OTP sent to your phone number')
+    if(input_code.length !== 6) {
+      setError('Please enter the 6 digit OTP sent to your phone number')
     } else if(registerInfo.code !== input_code) {
       console.log('here')
       setError('Invalid OTP')
@@ -84,7 +86,7 @@ const Register = ({ navigation }: any) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className='p-xl w-full flex-col justify-between flex-1'
     >
-      <View>
+      <ScrollView>
         <Pressable className='flex-row items-center' onPress={() => {
           navigation.navigate('Login')
         }}>
@@ -94,9 +96,20 @@ const Register = ({ navigation }: any) => {
             <Text className='ml-default'>Back to Login</Text>
         </Pressable>
 
+        <View className='mt-2xl flex-row items-center'>
+          <Text className='text-3xl text-dark'>Step</Text>
+          <Text className='text-3xl font-bold text-blue mx-xs'>{registerInfo.step}</Text>
+          <Text className='text-3xl text-dark'>of 3</Text>
+        </View>
+
         <View className='mt-2xl'>
             <Text className='text-xl font-bold text-dark'>Get Started</Text>
-            <Text className='text-dark opacity-80'>Join the helpful community and contribute in creating a helpful environment.</Text>
+            {
+              registerInfo.step === 1 ?
+              <Text className='text-dark opacity-80'>We require you to verify your phone and provide your information to continue</Text>
+              :
+              <Text className='text-dark opacity-80'>Join the helpful community and contribute in creating a helpful environment.</Text>
+            }
         </View>
 
         <View className='mt-2xl'>
@@ -111,7 +124,7 @@ const Register = ({ navigation }: any) => {
             <OPTVerification
               phone={registerInfo.mobile_number}
               error={error}
-              handleOTPVerification={(input_code: string) => handleOTPVerification(input_code)}
+              handleOTPVerification={handleOTPVerification}
             />
             :
             <RegisterInfo 
@@ -120,7 +133,14 @@ const Register = ({ navigation }: any) => {
             />
           }
         </View>
-      </View>
+      </ScrollView>
+      {
+        isLoading &&
+        <LoadingIndicator 
+          text='Verifying OTP' 
+          subText='Please wait while we verify the OTP'
+        />
+      }
     </KeyboardAvoidingView>
   )
 }

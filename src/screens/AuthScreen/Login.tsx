@@ -32,7 +32,7 @@ const Login = ({ navigation }: any) => {
     })
 
     const handleNavigateBack = () => {
-        navigation.navigate('Tab')
+        navigation.navigate('Home')
     }
 
     const handlePhoneVerification = () => {

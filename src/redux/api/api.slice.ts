@@ -5,7 +5,7 @@ import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
     // baseUrl: 'https://prachaya-test-back.onrender.com/',
-    baseUrl: ' https://4fc6-202-51-76-77.in.ngrok.io',
+    baseUrl: 'https://a734-202-51-76-77.in.ngrok.io',
     prepareHeaders: (headers, { getState }) => {
       // const token = (getState() as RootState).auth.access;
       // if (token) {
@@ -16,7 +16,9 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const baseQueryWithoutErrorHandling = async ( args: any, api: any, extraOptions: any ) => {
+  console.log("Hitting now")
   const result = await baseQuery(args, api, extraOptions);
+  console.log("API result:", result)
   
   if (result.data) {
     if (args.method !== "GET" && typeof args !== "string")

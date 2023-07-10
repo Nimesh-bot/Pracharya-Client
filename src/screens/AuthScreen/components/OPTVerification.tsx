@@ -10,12 +10,12 @@ import { useVerifyOtpMutation } from '../../../redux/features/auth/authApi.slice
 interface OPTVerificationProps {
   phone: string
   additionalCss?: string
-  handleOTPVerification: any
+  handleOTPVerification: (otp: string) => void
   error: string
 }
 
 const OPTVerification = ({ phone, additionalCss, handleOTPVerification, error }: OPTVerificationProps) => {
-  const otpFieldsPerScreen = 4;
+  const otpFieldsPerScreen = 6;
   const [otpCodes, setOtpCodes] = useState(Array(otpFieldsPerScreen).fill(""));
   const textInputRefs = useRef<(null | TextInput)[]>([
       ...Array(otpFieldsPerScreen),
@@ -57,13 +57,20 @@ const OPTVerification = ({ phone, additionalCss, handleOTPVerification, error }:
     });
   };
 
+  const handleSubmit = () => {
+    console.log('in child')
+    const otp = otpCodes.join("");
+    handleOTPVerification(otp);
+    console.log('sending')
+  }
+
   return (
       <View>
         <View className='flex-row items-center gap-x-2'>
           <Text>Enter OTP received by</Text>
           <Text className='font-bold text-dark'>{phone}</Text>
         </View>
-        <View className='flex-row items-center gap-x-4 mt-sm'>
+        <View className='flex-row items-center mt-sm'>
           {
             otpCodes.map((code, index) => (
               <TextInput
@@ -73,7 +80,7 @@ const OPTVerification = ({ phone, additionalCss, handleOTPVerification, error }:
                 onChangeText={(text: string) => onChangeText(text, index)}
                 onSubmitEditing={() => handleNext(index)}
                 selectTextOnFocus={true}
-                keyboardType="numeric"
+                keyboardType="default"
                 autoComplete="sms-otp"
                 autoCorrect={false}
                 enablesReturnKeyAutomatically={true}
@@ -83,7 +90,7 @@ const OPTVerification = ({ phone, additionalCss, handleOTPVerification, error }:
                   if (KeyValue === "Backspace") handleBack(index);
                   else handleNext(index);
                 }}
-                className={`px-xl py-lg rounded-sm flex text-lg bg-white 
+                className={`px-default py-default rounded-sm mr-sm flex text-lg bg-white 
                   text-center font-medium text-blue focus:border-blue 
                   ${additionalCss}
                   ${error !== '' && 'border border-red'}
@@ -99,7 +106,7 @@ const OPTVerification = ({ phone, additionalCss, handleOTPVerification, error }:
         <PrimaryButton
           text='Verify'
           additionalCss='mt-2xl'
-          onPress={() => handleOTPVerification(otpCodes.join(''))}
+          onPress={handleSubmit}
         />
       </View>
   )

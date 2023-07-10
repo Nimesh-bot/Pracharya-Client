@@ -1,5 +1,7 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 import { PlainInputField } from '../../../components/InputFields'
@@ -8,26 +10,88 @@ import { RegisterProps } from '../Register'
 
 import { CalendarIcon } from '../../../../assets/icons/svg-icons';
 import tailwindConfig from '../../../../tailwind.config';
+import { useSignUpMutation } from '../../../redux/features/auth/authApi.slice';
+import { authorize } from '../../../redux/features/auth/auth.slice';
+import { useNavigation } from '@react-navigation/native';
 
 const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
     const primaryColor = (tailwindConfig as any).theme.colors.blue
+    const [ signUp, { data, isLoading } ] = useSignUpMutation()
     const [showDatePicker, setShowDatePicker] = useState(false)
+    
+    const [error, setError] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        dob: '',
+        mobile_number: '',
+    })
+    
+    const dispatch = useDispatch()
+    const navigation = useNavigation<any>()
 
     const handleSubmit = () => {
-        const payload = {
-            firstname: registerInfo.firstname,
-            middlename: registerInfo.middlename,
-            lastname: registerInfo.lastname,
-            email: registerInfo.email,
-            dob: registerInfo.dob,
-            mobile_number: registerInfo.mobile_number,
+        if(registerInfo.firstname === '' || registerInfo.lastname === '' || registerInfo.email === '' || registerInfo.dob === null || registerInfo.mobile_number === '') {
+            setError({
+                firstname: registerInfo.firstname === '' ? 'Required' : '',
+                lastname: registerInfo.lastname === '' ? 'Required' : '',
+                email: registerInfo.email === '' ? 'Required' : '',
+                dob: registerInfo.dob === null ? 'Required' : '',
+                mobile_number: registerInfo.mobile_number === '' ? 'Required' : '',
+            })
+        } else if(
+            registerInfo.email.includes('@') === false ||
+            registerInfo.email.includes('.') === false ||
+            registerInfo.email.includes(' ') === true
+        ) {
+            setError({
+                ...error,
+                email: 'Invalid email address'
+            })
+        } else if (registerInfo.mobile_number.length < 10) {
+            setError({
+                ...error,
+                mobile_number: 'Invalid phone number'
+            })
+        } else {
+            const payload = {
+                firstname: registerInfo.firstname,
+                middlename: registerInfo.middlename,
+                lastname: registerInfo.lastname,
+                email: registerInfo.email,
+                dob: registerInfo.dob,
+                mobile_number: registerInfo.mobile_number,
+            }
+            signUp(payload).unwrap().then((res) => {
+                dispatch(authorize(res))
+                Toast.show({
+                    type: 'success',
+                    text1: 'Registration Successful',
+                    text2: 'Redirecting in 3 seconds',
+                    visibilityTime: 4000,
+                    autoHide: true,
+                })
+                setTimeout(() => {
+                    navigation.navigate('Home')
+                }, 3000)
+            }).catch((err) => {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Fail',
+                    text2: err.data.message || 'Something went wrong',
+                    visibilityTime: 4000,
+                    autoHide: true,
+                })
+            })
         }
-        console.log(payload)
+        
     }
 
     return (
         <>
-            <View>
+            <KeyboardAvoidingView 
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+            >
                 <View>
                     <Text className='text-dark opacity-80 mb-sm'>First Name</Text>
                     <PlainInputField
@@ -122,7 +186,7 @@ const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
                         }}
                     />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
             <PrimaryButton
                 text='Register'
                 additionalCss='mt-2xl'

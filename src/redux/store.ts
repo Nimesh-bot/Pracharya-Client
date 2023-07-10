@@ -52,6 +52,7 @@ export const store = configureStore({
       immutableCheck: { warnAfter: 128 },
     })
     .concat(apiSlice.middleware)
+    .concat(authApi.middleware)
     .concat(threadApi.middleware)
     .concat(profileApi.middleware)
     .concat(categoryApi.middleware),

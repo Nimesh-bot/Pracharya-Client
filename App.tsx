@@ -13,6 +13,7 @@ import { PostDetailContextProvider } from './src/context/PostDetailContextProvid
 import { store, persistor } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import LoadingScreen from './src/screens/SplashScreen/LoadingScreen';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -55,6 +56,7 @@ export default function App() {
                   height: SCREEN_HEIGHT - STATUS_BAR_HEIGHT,
                 }}>
                   <RootNavigator />
+                  <Toast />
                 </View>
               </View>
             </SafeAreaView>
