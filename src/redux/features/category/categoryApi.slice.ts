@@ -14,6 +14,7 @@ export const categoryApi = apiSlice
         providesTags: ["Category"],
       }),
     }),
+    overrideExisting: true,
   });
 
 export const { useGetCategoriesQuery } = categoryApi;

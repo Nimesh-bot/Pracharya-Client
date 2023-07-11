@@ -27,6 +27,7 @@ export const threadApi = apiSlice
         }),
       }),
     }),
+    overrideExisting: true,
   });
 
 export const {

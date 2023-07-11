@@ -36,6 +36,7 @@ export const authApi = apiSlice
         }),
       }),
     }),
+    overrideExisting: true,
   });
 
 export const {

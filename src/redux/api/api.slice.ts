@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
     console.log("access_token", access_token);
     console.log("loggedin", isLoggedIn);
     if (isLoggedIn && access_token) {
-      headers.set("authorization", `${access_token}`);
+      headers.set("authorization", `Bearer ${access_token}`);
     }
     return headers;
   },

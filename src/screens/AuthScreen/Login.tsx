@@ -116,6 +116,7 @@ const Login = ({ navigation }: any) => {
     verifyOTP(payload)
       .unwrap()
       .then((res) => {
+        console.log("res login", res);
         dispatch(authorize(res));
         Toast.show({
           type: "success",

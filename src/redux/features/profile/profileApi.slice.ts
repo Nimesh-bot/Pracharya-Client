@@ -6,7 +6,7 @@ export const profileApi = apiSlice
   })
   .injectEndpoints({
     endpoints: (builder) => ({
-      userDetail: builder.query<any, void>({
+      userDetail: builder.query<User.UserProfile, void>({
         query: () => ({
           url: `profile/get_my_profile`,
           method: "GET",
@@ -21,6 +21,7 @@ export const profileApi = apiSlice
         invalidatesTags: ["Profile"],
       }),
     }),
+    overrideExisting: true,
   });
 
 export const { useUserDetailQuery, useDeleteUserProfileMutation } = profileApi;
