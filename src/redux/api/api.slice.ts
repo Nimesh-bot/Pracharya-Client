@@ -1,16 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Toast from "react-native-toast-message";
 import { unauthorize } from "../features/auth/auth.slice";
+import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: 'https://prachaya-test-back.onrender.com/',
   // baseUrl: 'https://3d60-202-51-76-77.in.ngrok.io',
   baseUrl: "http://192.168.101.3:8000",
   prepareHeaders: (headers, { getState }) => {
-    // const token = (getState() as RootState).auth.access;
-    // if (token) {
-    //   headers.set("authorization", `${token}`);
-    // }
+    const { isLoggedIn, access_token } = (getState() as RootState).auth;
+    if (isLoggedIn && access_token) {
+      headers.set("authorization", `${access_token}`);
+    }
     return headers;
   },
 });

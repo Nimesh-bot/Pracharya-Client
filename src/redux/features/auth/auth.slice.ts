@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: AuthState = {
   isLoggedIn: false,
+  access_token: undefined,
+  refresh_token: undefined,
 };
 
 export const AuthSlice = createSlice({
@@ -11,13 +13,13 @@ export const AuthSlice = createSlice({
   reducers: {
     authorize: (state, action: PayloadAction<AuthState>) => {
       state.isLoggedIn = true;
-      state.access = action.payload.access;
-      state.refresh = action.payload.refresh;
+      state.access_token = action.payload.access_token;
+      state.refresh_token = action.payload.refresh_token;
     },
     unauthorize: (state) => {
       state.isLoggedIn = false;
-      state.access = undefined;
-      state.refresh = undefined;
+      state.access_token = undefined;
+      state.refresh_token = undefined;
     },
   },
 });
