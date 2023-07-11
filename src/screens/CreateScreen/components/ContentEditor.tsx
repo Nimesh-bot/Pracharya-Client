@@ -18,21 +18,24 @@ import { PrimaryButton, TextButton } from "../../../components/Buttons";
 import { PlainInputField } from "../../../components/InputFields";
 
 interface ContentEditorProps {
-  content: string;
   setContent: (content: string) => void;
   title: string;
   setTitle: (title: string) => void;
   handleSubmit: () => void;
   handlePrev: () => void;
+  error: {
+    title: string;
+    content: string;
+  };
 }
 
 const ContentEditor = ({
   title,
   setTitle,
-  content,
   setContent,
   handleSubmit,
   handlePrev,
+  error,
 }: ContentEditorProps) => {
   const primaryColor = (tailwindConfig.theme as any).colors.blue;
   const whiteColor = (tailwindConfig.theme as any).colors.white;
@@ -55,8 +58,11 @@ const ContentEditor = ({
             placeholder="Title"
             value={title}
             onChangeText={(text: string) => setTitle(text)}
-            additionalCss="bg-white"
+            additionalCss={`bg-white ${error.title && "border border-red"}`}
           />
+          {error.title && (
+            <Text className="text-red text-xs">{error.title}</Text>
+          )}
         </View>
         <RichToolbar
           editor={richText}
@@ -80,13 +86,20 @@ const ContentEditor = ({
           }}
           className="bg-dark rounded-t-default text-white"
           selectedIconTint={whiteColor}
+          selectedButtonStyle={{
+            backgroundColor: primaryColor,
+          }}
         />
         <ScrollView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
           >
-            <View className="rounded-default">
+            <View
+              className={`rounded-default ${
+                error.content && "border border-red"
+              }`}
+            >
               <RichEditor
                 ref={(r) => (richText.current = r)}
                 editorStyle={{
@@ -104,6 +117,9 @@ const ContentEditor = ({
                 }}
               />
             </View>
+            {error.content && (
+              <Text className="text-red text-xs">{error.content}</Text>
+            )}
           </KeyboardAvoidingView>
         </ScrollView>
         <PrimaryButton

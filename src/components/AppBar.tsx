@@ -9,6 +9,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import { LogoutIcon } from "../../assets/icons/svg-icons";
 import tailwindConfig from "../../tailwind.config";
 
+import { apiSlice } from "../redux/api/api.slice";
 import { unauthorize } from "../redux/features/auth/auth.slice";
 import { useAppSelector } from "../redux/hooks";
 import { RootState, persistor } from "../redux/store";
@@ -25,6 +26,7 @@ const AppBar = () => {
   const handleLogout = () => {
     logoutModalIsOpen && setLogoutModalIsOpen(false);
     dispatch(unauthorize());
+    dispatch(apiSlice.util.resetApiState());
     persistor.purge();
     Toast.show({
       type: "success",
@@ -34,7 +36,6 @@ const AppBar = () => {
     setTimeout(() => {
       navigation.navigate("Home");
     }, 2000);
-    // authApi.util.resetApiState()
   };
 
   return (

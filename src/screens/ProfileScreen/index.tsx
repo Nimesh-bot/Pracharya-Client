@@ -1,28 +1,32 @@
-import { ScrollView, View, Text } from 'react-native'
-import React from 'react'
-import AppBar from '../../components/AppBar'
-import UserCard from './components/UserCard'
-import AccountDetails from './components/AccountDetails'
+import React from "react";
+import { ScrollView, View } from "react-native";
+import AppBar from "../../components/AppBar";
+import AccountDetails from "./components/AccountDetails";
+import UserCard from "./components/UserCard";
+
+import { useUserDetailQuery } from "../../redux/features/profile/profileApi.slice";
 
 const ProfileScreen = ({ navigation }: any) => {
+  const { data, isLoading, isFetching } = useUserDetailQuery();
+
+  console.log("profile", data);
+
   return (
     <ScrollView
       contentContainerStyle={{
-        flexDirection: 'column',
+        flexDirection: "column",
         flex: 1,
-        width: '100%',
-        position: 'relative',
+        width: "100%",
+        position: "relative",
       }}
     >
       <AppBar />
-      <View className='p-xl h-full w-full justify-start flex-col mx-auto'>
+      <View className="p-xl h-full w-full justify-start flex-col mx-auto">
         <UserCard />
-        <AccountDetails 
-          navigation={navigation}
-        />
+        <AccountDetails navigation={navigation} />
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default ProfileScreen
+export default ProfileScreen;
