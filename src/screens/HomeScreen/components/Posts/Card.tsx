@@ -16,7 +16,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   const textColor = (tailwindConfig as any).theme.colors.dark;
   const primaryColor = (tailwindConfig as any).theme.colors.blue;
 
-  const { category, title, content, creators } = post;
+  const { category, title, content, creators, id } = post;
 
   const [source, setSource] = useState({
     html: "",
@@ -43,6 +43,8 @@ const Card = ({ post, fullContent }: PostCardProps) => {
       content,
       category,
       creators,
+      title,
+      id,
     });
     setIsVisible(true);
   };
