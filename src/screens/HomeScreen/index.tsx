@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import { usePostDetailContext } from "../../context/PostDetailContextProvider";
@@ -10,20 +10,21 @@ import Lists from "./components/Posts/Lists";
 
 const HomeScreen = () => {
   const { isVisible } = usePostDetailContext();
+  const [selected, setSelected] = useState(0);
 
   return (
     <ScrollView
       contentContainerStyle={{
         flexDirection: "column",
-        flex: 1,
-        width: "100%",
-        position: "relative",
       }}
     >
       <AppBar />
       <View className="p-xl w-full justify-start flex-col mx-auto">
-        <Grid />
-        <Lists />
+        {/* categories grid */}
+        <Grid selected={selected} setSelected={setSelected} />
+
+        {/* threads list */}
+        <Lists selected={selected} />
       </View>
       {isVisible && <DetailPopup />}
     </ScrollView>

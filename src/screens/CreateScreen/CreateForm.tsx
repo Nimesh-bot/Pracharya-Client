@@ -40,15 +40,7 @@ const CreateForm = () => {
   const handleSubmit = () => {
     resetError();
 
-    const payload = {
-      title: title,
-      content: content,
-      category_id: selectedCategory,
-    };
-
-    console.log("content payload", payload);
-
-    if (title !== "" || content !== "") {
+    if (title === "" || content === "") {
       setError({
         title: !title ? "Title is required" : "",
         content: !content ? "Content is required" : "",
@@ -58,14 +50,20 @@ const CreateForm = () => {
         ...error,
         title: "Title must be at most 20 characters long",
       });
-    } else if (content.length > 250) {
+    } else if (content.length > 500) {
       setError({
         ...error,
         content: "Content must be at most 250 characters long",
       });
     } else {
-      console.log("here");
+      const payload = {
+        title: title,
+        content: content,
+        category_id: selectedCategory,
+      };
 
+      console.log("content payload", payload);
+      console.log("here");
       createThread(payload)
         .unwrap()
         .then((res) => {

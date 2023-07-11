@@ -6,22 +6,28 @@ export const threadApi = apiSlice
   })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getThreadsByCategory: builder.query({
+      getAllThreads: builder.query<Threads.ThreadsProps[], void>({
+        query: () => ({
+          url: `thread/get_all_thread`,
+          method: "GET",
+        }),
+      }),
+      getThreadsByCategory: builder.query<any, number>({
         query: (category) => ({
-          url: `threads/get_thread_category/${category}`,
+          url: `thread/get_thread_category/${category}`,
           method: "GET",
         }),
         providesTags: ["Thread"],
       }),
       getThreadById: builder.query({
         query: (id) => ({
-          url: `threads/get_thread/${id}`,
+          url: `thread/get_thread/${id}`,
           method: "GET",
         }),
       }),
       createThread: builder.mutation({
         query: (data) => ({
-          url: `threads/new_thread`,
+          url: `thread/new_thread`,
           method: "POST",
           body: data,
         }),
@@ -31,6 +37,7 @@ export const threadApi = apiSlice
   });
 
 export const {
+  useGetAllThreadsQuery,
   useGetThreadsByCategoryQuery,
   useGetThreadByIdQuery,
   useCreateThreadMutation,

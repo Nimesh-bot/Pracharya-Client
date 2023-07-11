@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView } from "react-native";
 
 import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
 import Card from "./Card";
 
-const Grid = () => {
-  const [selected, setSelected] = useState(0);
+interface GridProps {
+  selected: number;
+  setSelected: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Grid = ({ selected, setSelected }: GridProps) => {
   const { data: categories } = useGetCategoriesQuery();
 
   console.log("categories", categories);
