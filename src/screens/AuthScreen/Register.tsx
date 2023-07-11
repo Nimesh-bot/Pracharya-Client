@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 import { RightArrowIcon } from "../../../assets/icons/svg-icons";
 
@@ -14,7 +15,6 @@ import OPTVerification from "./components/OPTVerification";
 import RegisterInfo from "./components/RegisterInfo";
 import RegisterPhone from "./components/RegisterPhone";
 
-import Toast from "react-native-toast-message";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useVerifyOtpMutation } from "../../redux/features/auth/authApi.slice";
 
@@ -49,8 +49,8 @@ const Register = ({ navigation }: any) => {
   const [error, setError] = useState("");
 
   const handleOTPVerification = (input_code: string) => {
-    console.log("here");
     setError("");
+    console.log("input_code", input_code, "code", registerInfo.code);
     if (input_code.length !== 6) {
       setError("Please enter the 6 digit OTP sent to your phone number");
     } else if (registerInfo.code !== input_code) {
@@ -60,12 +60,14 @@ const Register = ({ navigation }: any) => {
     } else {
       const payload = {
         mobile_number: registerInfo.mobile_number,
-        otp: input_code,
+        code: input_code,
         type: "signup",
       };
+      console.log("payload", payload);
       verifyOTP(payload)
         .unwrap()
         .then((res) => {
+          console.log("otp res", res);
           Toast.show({
             type: "success",
             text1: "Verified",
@@ -84,8 +86,7 @@ const Register = ({ navigation }: any) => {
             type: "error",
             text1: "Error",
             text2:
-              err.data.message ||
-              "Something went wrong. Please try again later",
+              err.data.msg || "Something went wrong. Please try again later",
           });
         });
     }

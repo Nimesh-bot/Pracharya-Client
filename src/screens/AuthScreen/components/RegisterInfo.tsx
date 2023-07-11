@@ -95,7 +95,7 @@ const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
           Toast.show({
             type: "error",
             text1: "Fail",
-            text2: err.data.message || "Something went wrong",
+            text2: err.data.msg || "Something went wrong",
             visibilityTime: 4000,
             autoHide: true,
           });
