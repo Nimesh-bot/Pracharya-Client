@@ -1,37 +1,27 @@
-import { View, Text, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import Tabs from './components/Tabs'
-import AppBar from '../../components/AppBar'
-import Lists from './components/Bookmarks/Lists'
+import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
+import AppBar from "../../components/AppBar";
+import Lists from "./components/Bookmarks/Lists";
 
 const BookmarksScreen = () => {
-  const [isBookmark, setIsBookmark] = useState(true)
+  const [isBookmark, setIsBookmark] = useState(true);
 
   return (
     <ScrollView
       contentContainerStyle={{
-        flexDirection: 'column',
-        flex: 1,
-        width: '100%',
-        position: 'relative',
+        flexDirection: "column",
       }}
     >
       <AppBar />
-      <View className='flex-col p-xl'>
-        <Tabs 
+      <View className="flex-col p-xl">
+        {/* <Tabs 
           isBookmark={isBookmark}
           setIsBookmark={setIsBookmark}
-        />
-        {
-          isBookmark ? (
-            <Lists />
-          )
-          :
-          <></>
-        }
+        /> */}
+        {isBookmark ? <Lists /> : <></>}
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default BookmarksScreen
+export default BookmarksScreen;

@@ -1,21 +1,77 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import Card from './Card'
-import { fakePosts } from '../../../../libs/constants'
+import React, { useEffect, useMemo, useState } from "react";
+import { Text, View } from "react-native";
+
+import LoadingIndicator from "../../../../components/LoadingIndicator";
+import Card from "./Card";
+
+import { useGetBookmarksQuery } from "../../../../redux/features/bookmarks/bookmarksApi.slice";
+import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
 
 const Lists = () => {
-  return (
-    <View className='flex-col mt-xl items-center w-full'>
-      {
-        fakePosts.map((post, index) => (
-            <Card 
-              key={index}
-              post={post}
-            />
-        ))
-      }
-    </View>
-  )
-}
+  const {
+    data: bookmarkData,
+    isLoading,
+    isFetching,
+    refetch: bookmarksRefetch,
+  } = useGetBookmarksQuery();
 
-export default Lists
+  const { data: categoriesData } = useGetCategoriesQuery();
+
+  useEffect(() => {
+    bookmarksRefetch();
+    console.log("book", bookmarkData);
+  }, []);
+
+  const [bookmarks, setBookmarks] = useState<any>([]);
+
+  // do that temp function in useMemo
+  useMemo(() => {
+    let temp = bookmarkData?.map((bookmark: any) => {
+      return {
+        bookmarkId: bookmark.id,
+        id: bookmark.thread.id,
+        title: bookmark.thread.title,
+        content: bookmark.thread.content,
+        category: categoriesData?.find(
+          (each) => each.id === bookmark.thread.categoryId
+        )?.name,
+        creators: [
+          {
+            avatar: bookmark.thread.creator.avatar,
+          },
+        ],
+      };
+    });
+    setBookmarks(temp);
+  }, [bookmarkData, categoriesData]);
+
+  return (
+    <>
+      <View className="flex-col items-center w-full">
+        {bookmarks &&
+          bookmarks?.map((bookmark: any, index: number) => (
+            <Card key={index} post={bookmark} />
+          ))}
+        {bookmarks === undefined ||
+          (bookmarks?.length === 0 && (
+            <View className="flex-col items-center mt-xl">
+              <Text className="text-dark text-lg font-bold">
+                You have no bookmarks
+              </Text>
+              <Text className="text-dark text-sm mt-xl">
+                Bookmark your favorite posts to read them later
+              </Text>
+            </View>
+          ))}
+      </View>
+      {(isLoading || isFetching) && (
+        <LoadingIndicator
+          text="Please wait a moment"
+          subText="Searching for your bookmarks..."
+        />
+      )}
+    </>
+  );
+};
+
+export default Lists;

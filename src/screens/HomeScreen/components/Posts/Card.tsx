@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import RenderHTML from "react-native-render-html";
 
 import {
@@ -11,12 +11,35 @@ import Tags from "../../../../components/Tags";
 import tailwindConfig from "../../../../../tailwind.config";
 import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
 import { SCREEN_WIDTH } from "../../../../libs/constants";
+import {
+  useAddBookmarkMutation,
+  useDeleteBookmarkMutation,
+  useGetBookmarksQuery,
+} from "../../../../redux/features/bookmarks/bookmarksApi.slice";
+import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
 
 const Card = ({ post, fullContent }: PostCardProps) => {
   const textColor = (tailwindConfig as any).theme.colors.dark;
   const primaryColor = (tailwindConfig as any).theme.colors.blue;
 
   const { category, title, content, creators, id } = post;
+
+  const { data: categoriesData, refetch: categoriesRefetch } =
+    useGetCategoriesQuery();
+
+  const { data: bookmarksData } = useGetBookmarksQuery();
+  const [addBookmark] = useAddBookmarkMutation();
+  const [deleteBookmark] = useDeleteBookmarkMutation();
+
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    if (bookmarksData) {
+      setIsBookmarked(
+        bookmarksData.some((bookmark: any) => bookmark.thread.id === id)
+      );
+    }
+  }, []);
 
   const [source, setSource] = useState({
     html: "",
@@ -47,14 +70,37 @@ const Card = ({ post, fullContent }: PostCardProps) => {
     setIsVisible(true);
   };
 
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+
+    if (isBookmarked) {
+      const payload = {
+        bookmark_id: bookmarksData.find(
+          (bookmark: any) => bookmark.thread.id === id
+        ).id,
+      };
+      deleteBookmark(payload);
+    } else {
+      const payload = {
+        thread_id: id,
+      };
+      addBookmark(payload);
+    }
+  };
+
   return (
     <Pressable
       className="py-default px-xl w-full bg-white rounded-md flex-col mt-lg first-of-type:mt-0"
       onPress={handleOpenDetail}
     >
       <View className="flex-row justify-between items-center">
-        <Tags title={category} />
-        <BookmarksIcon size={24} active={false} />
+        <Tags title={category ? category : ""} />
+        <TouchableOpacity onPress={handleBookmark}>
+          <BookmarksIcon
+            size={24}
+            color={isBookmarked ? primaryColor : textColor}
+          />
+        </TouchableOpacity>
       </View>
       <View className="text-dark mt-default">
         <View className="py-xs border-b border-b-border">
@@ -94,7 +140,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
       <View className="flex-row justify-between items-center mt-xl">
         <View className="flex-row items-center">
           <View className="flex-row items-center">
-            {creators.map((contributor: any, index: number) => (
+            {creators?.map((contributor: any, index: number) => (
               <View className="w-10 h-10 rounded-full" key={index}>
                 <Image
                   source={{ uri: contributor.avatar }}

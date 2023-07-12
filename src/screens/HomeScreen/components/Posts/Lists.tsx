@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import Card from "./Card";
 
+import { useNavigation } from "@react-navigation/native";
+import { TextButton } from "../../../../components/Buttons";
 import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
 import {
   useGetAllThreadsQuery,
@@ -48,7 +50,7 @@ const Lists = ({ selected }: ListsProps) => {
         arr = data!;
         break;
       default:
-        arr = threadsByCategory.thread;
+        arr = threadsByCategory?.thread;
         break;
     }
 
@@ -71,14 +73,45 @@ const Lists = ({ selected }: ListsProps) => {
     setThreads(temp);
   }, [data, selected, threadsByCategory]);
 
-  if (isLoading || isLoadingCategories || isFetching || isFetchingCategories)
-    return <LoadingScreen />;
+  const navigation = useNavigation<any>();
+
+  const [globalLoading, setGlobalLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (globalLoading) {
+      setTimeout(() => {
+        setGlobalLoading(false);
+      }, 2000);
+    }
+  });
+
+  if (globalLoading) return <LoadingScreen />;
 
   return (
     <View className="flex-col mt-xl items-center w-full">
       {threads?.map((post: any, index: number) => (
         <Card key={index} post={post} />
       ))}
+      {(threads === undefined || threads?.length === 0) && (
+        <View className="flex-col mt-2xl items-center">
+          <Image
+            source={require("../../../../../assets/icons/no_threads.png")}
+            className="mix-blend-darken w-40 h-40"
+          />
+          <Text className="text-dark font-bold text-lg mb-default">
+            No information
+          </Text>
+          <Text className="text-dark text-center">
+            Would you mind sharing your valuable information for this
+            certification?
+          </Text>
+          <TextButton
+            text="Share your knowledge"
+            onPress={() => navigation.navigate("Create")}
+            style={{ marginTop: 20 }}
+          />
+        </View>
+      )}
     </View>
   );
 };
