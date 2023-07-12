@@ -50,12 +50,9 @@ const Register = ({ navigation }: any) => {
 
   const handleOTPVerification = (input_code: string) => {
     setError("");
-    console.log("input_code", input_code, "code", registerInfo.code);
     if (input_code.length !== 6) {
       setError("Please enter the 6 digit OTP sent to your phone number");
     } else if (registerInfo.code !== input_code) {
-      console.log(registerInfo.code, input_code);
-      console.log("here");
       setError("Invalid OTP");
     } else {
       const payload = {
@@ -63,11 +60,9 @@ const Register = ({ navigation }: any) => {
         code: input_code,
         type: "signup",
       };
-      console.log("payload", payload);
       verifyOTP(payload)
         .unwrap()
         .then((res) => {
-          console.log("otp res", res);
           Toast.show({
             type: "success",
             text1: "Verified",

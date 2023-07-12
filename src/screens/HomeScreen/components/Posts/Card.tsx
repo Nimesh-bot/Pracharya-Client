@@ -22,8 +22,6 @@ const Card = ({ post, fullContent }: PostCardProps) => {
     html: "",
   } as any);
 
-  console.log("creator", creators[0].avatar);
-
   useEffect(() => {
     if (!fullContent) {
       setSource({

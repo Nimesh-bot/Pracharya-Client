@@ -17,8 +17,26 @@ const LikeApiSlice = apiSlice
           url: `like/add_like/${threadId}`,
           method: "POST",
         }),
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          let result;
+
+          try {
+            const data = await queryFulfilled;
+            result = dispatch(
+              LikeApiSlice.util.updateQueryData(
+                "getLikesofThread",
+                undefined,
+                (draft) => {
+                  draft.data = data;
+                }
+              )
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        },
       }),
-      removeLike: builder.mutation<any, void>({
+      removeLike: builder.mutation<any, any>({
         query: (threadId) => ({
           url: `like/remove_like/${threadId}`,
           method: "DELETE",

@@ -58,7 +58,6 @@ const Login = ({ navigation }: any) => {
     verifyPhone(payload)
       .unwrap()
       .then((res: Authentication.VerifyPhoneResponse) => {
-        console.log("res", res);
         if (res.user_exists) {
           setResponses({
             ...responses,
@@ -88,7 +87,6 @@ const Login = ({ navigation }: any) => {
         }
       })
       .catch((err: any) => {
-        console.log("err", err);
         Toast.show({
           type: "error",
           text1: "Error",
@@ -116,7 +114,6 @@ const Login = ({ navigation }: any) => {
     verifyOTP(payload)
       .unwrap()
       .then((res) => {
-        console.log("res login", res);
         dispatch(authorize(res));
         Toast.show({
           type: "success",
@@ -128,7 +125,6 @@ const Login = ({ navigation }: any) => {
         });
       })
       .catch((err: any) => {
-        console.log("err", err);
         Toast.show({
           type: "error",
           text1: "Error",

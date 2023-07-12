@@ -29,8 +29,6 @@ const Lists = ({ selected }: ListsProps) => {
   const { data, isLoading, isFetching } = useGetAllThreadsQuery();
   const { data: threadsByCategory } = useGetThreadsByCategoryQuery(selected);
 
-  console.log("threadsByCategory", threadsByCategory);
-
   const {
     data: categories,
     isLoading: isLoadingCategories,
@@ -45,7 +43,6 @@ const Lists = ({ selected }: ListsProps) => {
 
   useEffect(() => {
     let arr: any = [];
-    console.log("arr2", arr);
     switch (selected) {
       case 0:
         arr = data!;
@@ -54,7 +51,6 @@ const Lists = ({ selected }: ListsProps) => {
         arr = threadsByCategory.thread;
         break;
     }
-    console.log("arr2", arr);
 
     const temp = arr?.map((thread: Threads.ThreadsProps) => {
       return {

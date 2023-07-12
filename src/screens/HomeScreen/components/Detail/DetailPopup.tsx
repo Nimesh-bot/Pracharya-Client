@@ -9,11 +9,11 @@ import PostComment from "./PostComment";
 
 import { RightArrowIcon } from "../../../../../assets/icons/svg-icons";
 import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
-import { fakePosts } from "../../../../libs/constants";
 
 import LoadingIndicator from "../../../../components/LoadingIndicator";
 import { useGetCommentsOfThreadQuery } from "../../../../redux/features/comments/commentsApi.slice";
 import { useGetLikesofThreadQuery } from "../../../../redux/features/likes/likeApi.slice";
+import { useUserDetailQuery } from "../../../../redux/features/profile/profileApi.slice";
 import { useGetThreadByIdQuery } from "../../../../redux/features/thread/threadApi.slice";
 
 const DetailPopup = () => {
@@ -22,21 +22,37 @@ const DetailPopup = () => {
   const [commentShown, setCommentShown] = useState(false);
 
   const { data, isLoading, isFetching } = useGetThreadByIdQuery(post.id);
-  const { data: likesCount, isLoading: likesCountLoading } =
-    useGetLikesofThreadQuery(post.id);
-  const { data: commentsCount, isLoading: commentsCountLoading } =
-    useGetCommentsOfThreadQuery(post.id);
+  const {
+    data: likesCount,
+    isLoading: likesCountLoading,
+    refetch: likeRefetch,
+  } = useGetLikesofThreadQuery(post.id);
+  const {
+    data: commentsCount,
+    isLoading: commentsCountLoading,
+    refetch: commentRefetch,
+  } = useGetCommentsOfThreadQuery(post.id);
+
+  const { data: profileData, refetch: profileRefetch } = useUserDetailQuery();
+
+  const [globalLoading, setGlobalLoading] = useState(true);
 
   useEffect(() => {
     data;
-    likesCount;
-    commentsCount;
+    likeRefetch();
+    commentRefetch();
+    profileRefetch();
+  }, [data, likesCount, commentsCount]);
 
-    console.log("likes", likesCount);
-    console.log("comments", commentsCount);
-  }, [data]);
+  useEffect(() => {
+    if (globalLoading) {
+      setTimeout(() => {
+        setGlobalLoading(false);
+      }, 2000);
+    }
+  }, [globalLoading]);
 
-  if (isLoading || isFetching || likesCountLoading || commentsCountLoading)
+  if (globalLoading)
     return (
       <LoadingIndicator
         text="Fetching Details"
@@ -61,6 +77,8 @@ const DetailPopup = () => {
         <ScrollView
           contentContainerStyle={{
             paddingBottom: 20,
+            flexDirection: "column",
+            flexGrow: 1,
           }}
         >
           <View className="w-full flex-1 mt-3xl rounded-t-lg bg-white flex-col p-xl">
@@ -79,13 +97,23 @@ const DetailPopup = () => {
             </Pressable>
             <Card post={post} fullContent={true} />
             <Interactions
-              likes={likesCount.like_count}
-              comments={commentsCount.length === 0 ? 0 : commentsCount.length}
+              threadId={post.id}
+              active={likesCount?.some(
+                (like: any) => like?.profileid === profileData?.id
+              )}
+              likes={
+                likesCount && likesCount?.length > 0 ? likesCount?.length : 0
+              }
+              comments={
+                commentsCount && commentsCount?.length > 0
+                  ? commentsCount?.length
+                  : 0
+              }
               commentShown={commentShown}
               setCommentShown={setCommentShown}
             />
-            <PostComment />
-            {fakePosts[0].comments.map((comment: any, index: number) => (
+            <PostComment comment={commentsCount} threadId={post.id} />
+            {commentsCount?.map((comment: any, index: number) => (
               <Comments comment={comment} key={index} />
             ))}
           </View>

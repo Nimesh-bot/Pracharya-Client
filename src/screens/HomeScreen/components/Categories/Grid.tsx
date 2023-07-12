@@ -12,8 +12,6 @@ interface GridProps {
 const Grid = ({ selected, setSelected }: GridProps) => {
   const { data: categories } = useGetCategoriesQuery();
 
-  console.log("categories", categories);
-
   return (
     <ScrollView
       horizontal={true}

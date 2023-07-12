@@ -22,5 +22,6 @@ declare namespace User {
     middlename: string;
     lastname: string;
     user: IUser;
+    id: number;
   }
 }

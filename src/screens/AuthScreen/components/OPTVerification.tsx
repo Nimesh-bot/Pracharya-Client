@@ -59,10 +59,8 @@ const OPTVerification = ({
   };
 
   const handleSubmit = () => {
-    console.log("in child");
     const otp = otpCodes.join("");
     handleOTPVerification(otp);
-    console.log("sending");
   };
 
   return (

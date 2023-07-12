@@ -62,12 +62,9 @@ const CreateForm = () => {
         category_id: selectedCategory,
       };
 
-      console.log("content payload", payload);
-      console.log("here");
       createThread(payload)
         .unwrap()
         .then((res) => {
-          console.log(res);
           Toast.show({
             type: "success",
             text1: "Thread Created",
@@ -80,7 +77,6 @@ const CreateForm = () => {
           navigation.navigate("Home");
         })
         .catch((err) => {
-          console.log(err);
           Toast.show({
             type: "error",
             text1: "Oops..",
