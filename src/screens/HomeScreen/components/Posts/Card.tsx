@@ -23,6 +23,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   const primaryColor = (tailwindConfig as any).theme.colors.blue;
 
   const { category, title, content, creators, id } = post;
+  console.log(content);
 
   const { data: categoriesData, refetch: categoriesRefetch } =
     useGetCategoriesQuery();
@@ -88,6 +89,8 @@ const Card = ({ post, fullContent }: PostCardProps) => {
     }
   };
 
+  if (source === "" || source === undefined) return <></>;
+
   return (
     <Pressable
       className="py-default px-xl w-full bg-white rounded-md flex-col mt-lg first-of-type:mt-0"
@@ -108,7 +111,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
         </View>
         <View className="opacity-70 mt-default">
           <RenderHTML
-            source={source}
+            source={source ? source : { html: "" }}
             contentWidth={SCREEN_WIDTH - 64}
             tagsStyles={{
               h1: {

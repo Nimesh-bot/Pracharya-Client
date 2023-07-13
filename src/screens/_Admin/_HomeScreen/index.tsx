@@ -55,7 +55,7 @@ const _AdminHomeScreen = () => {
 
         <View className="flex-col mt-2xl">
           {!data || data.length === 0 ? (
-            <>
+            <View className="flex-col justify-center items-center">
               <Image
                 source={require("../../../../assets/icons/no_threads.png")}
                 className="mix-blend-darken w-40 h-40"
@@ -66,7 +66,7 @@ const _AdminHomeScreen = () => {
               <Text className="text-dark text-center">
                 Wait till helpful volunteers add threads
               </Text>
-            </>
+            </View>
           ) : (
             threads?.map((each: any) => (
               <UnverifiedCard key={each.id} post={each} />
