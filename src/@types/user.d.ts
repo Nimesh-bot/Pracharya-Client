@@ -8,11 +8,16 @@ declare interface UserProps {
 }
 
 declare namespace User {
+  declare enum UserRole {
+    ADMIN = "ADMIN",
+    USER = "USER",
+  }
   declare interface IUser {
     email: string;
     email_verified: boolean;
     misidn: string;
     misidn_verified: boolean;
+    role: UserRole;
   }
   declare interface UserProfile {
     _count: {

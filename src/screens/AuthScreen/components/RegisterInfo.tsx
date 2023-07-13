@@ -88,7 +88,7 @@ const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
             autoHide: true,
           });
           setTimeout(() => {
-            navigation.navigate("Home");
+            navigation.navigate("CheckRole");
           }, 3000);
         })
         .catch((err) => {

@@ -54,24 +54,22 @@ const Lists = ({ selected }: ListsProps) => {
         break;
     }
 
-    const temp = arr
-      ?.filter((each: any) => each.verified)
-      .map((thread: Threads.ThreadsProps) => {
-        return {
-          id: thread.id,
-          title: thread.title,
-          content: thread.content,
-          category: categories?.find(
-            (category) => category.id === thread.categoryId
-          )?.name,
-          creators: [
-            {
-              avatar: thread.creator.avatar,
-            },
-          ],
-          createdAt: thread.createdAt,
-        };
-      });
+    const temp = arr?.map((thread: Threads.ThreadsProps) => {
+      return {
+        id: thread.id,
+        title: thread.title,
+        content: thread.content,
+        category: categories?.find(
+          (category) => category.id === thread.categoryId
+        )?.name,
+        creators: [
+          {
+            avatar: thread.creator.avatar,
+          },
+        ],
+        createdAt: thread.createdAt,
+      };
+    });
     setThreads(temp);
     console.log("temp", temp);
   }, [data, selected, threadsByCategory]);

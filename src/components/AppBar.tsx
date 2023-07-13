@@ -41,7 +41,7 @@ const AppBar = () => {
   return (
     <>
       <View className="w-full flex-row justify-between items-center p-xl">
-        <View className="h-6 w-32">
+        <View className="h-[24.28px] w-[120px]">
           <Image
             source={require("../../assets/logo.png")}
             alt="Logo"

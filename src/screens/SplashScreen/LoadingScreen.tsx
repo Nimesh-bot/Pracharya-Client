@@ -1,15 +1,22 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React from "react";
+import { Image, Modal, View } from "react-native";
 
 const LoadingScreen = () => {
   return (
-    <View className='bg-light h-screen w-screen flex-col justify-center items-center'>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={true}
+      onRequestClose={() => {}}
+    >
+      <View className="bg-light h-screen w-screen flex-col justify-center items-center">
         <Image
-            source={require('../../../assets/logo.png')}
-            className='w-40 h-auto'
+          source={require("../../../assets/logo.png")}
+          className="w-[200px] h-[40.47px]"
         />
-    </View>
-  )
-}
+      </View>
+    </Modal>
+  );
+};
 
-export default LoadingScreen
+export default LoadingScreen;

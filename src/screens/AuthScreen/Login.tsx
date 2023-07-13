@@ -118,10 +118,10 @@ const Login = ({ navigation }: any) => {
         Toast.show({
           type: "success",
           text1: "Verified",
-          text2: "Logged in. Redirecting to Home in 3 seconds",
+          text2: "Logged in. Redirecting in 3 seconds",
         });
         setTimeout(() => {
-          navigation.navigate("Home");
+          navigation.navigate("CheckRole");
         });
       })
       .catch((err: any) => {

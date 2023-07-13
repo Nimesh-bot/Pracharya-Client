@@ -24,6 +24,7 @@ export const threadApi = apiSlice
           url: `thread/get_thread/${id}`,
           method: "GET",
         }),
+        providesTags: ["Thread"],
       }),
       createThread: builder.mutation({
         query: (data) => ({
@@ -31,6 +32,21 @@ export const threadApi = apiSlice
           method: "POST",
           body: data,
         }),
+        invalidatesTags: ["Thread"],
+      }),
+      getUnverifiedThreads: builder.query<any, void>({
+        query: () => ({
+          url: `thread/get_unverified_thread`,
+          method: "GET",
+        }),
+        providesTags: ["Thread"],
+      }),
+      verifyThread: builder.mutation({
+        query: (id) => ({
+          url: `thread/verify_thread/${id}`,
+          method: "PATCH",
+        }),
+        invalidatesTags: ["Thread"],
       }),
     }),
     overrideExisting: true,
@@ -41,4 +57,6 @@ export const {
   useGetThreadsByCategoryQuery,
   useGetThreadByIdQuery,
   useCreateThreadMutation,
+  useGetUnverifiedThreadsQuery,
+  useVerifyThreadMutation,
 } = threadApi;
