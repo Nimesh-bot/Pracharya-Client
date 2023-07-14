@@ -17,10 +17,14 @@ import {
   useGetBookmarksQuery,
 } from "../../../../redux/features/bookmarks/bookmarksApi.slice";
 import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
+import { useSelector } from "react-redux";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const Card = ({ post, fullContent }: PostCardProps) => {
   const textColor = (tailwindConfig as any).theme.colors.dark;
   const primaryColor = (tailwindConfig as any).theme.colors.blue;
+
+  const { isLoggedIn } = useSelector((state: any) => state.auth);
 
   const { category, title, content, creators, id } = post;
   console.log(content);
@@ -28,7 +32,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   const { data: categoriesData, refetch: categoriesRefetch } =
     useGetCategoriesQuery();
 
-  const { data: bookmarksData } = useGetBookmarksQuery();
+  const { data: bookmarksData, refetch: bookmarksRefetch } = useGetBookmarksQuery();
   const [addBookmark] = useAddBookmarkMutation();
   const [deleteBookmark] = useDeleteBookmarkMutation();
 
@@ -41,6 +45,12 @@ const Card = ({ post, fullContent }: PostCardProps) => {
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      bookmarksRefetch();
+    }
+  }, [isLoggedIn]);
 
   const [source, setSource] = useState({
     html: "",
@@ -72,6 +82,14 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   };
 
   const handleBookmark = () => {
+    if(!isLoggedIn) {
+      Toast.show({
+        type: "error",
+        text1: "Login",
+        text2: "You need to login to bookmark",
+      })
+      return;
+    }
     setIsBookmarked(!isBookmarked);
 
     if (isBookmarked) {
@@ -163,7 +181,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
             Contributors
           </Text>
         </View>
-        <RightArrowIcon size={24} />
+        {/* <RightArrowIcon size={24} /> */}
       </View>
     </Pressable>
   );

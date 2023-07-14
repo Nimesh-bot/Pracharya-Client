@@ -9,6 +9,8 @@ import {
   useGetAllThreadsQuery,
   useGetThreadsByCategoryQuery,
 } from "../../../../redux/features/thread/threadApi.slice";
+
+import LoadingIndicator from "../../../../components/LoadingIndicator";
 import LoadingScreen from "../../../../screens/SplashScreen/LoadingScreen";
 
 interface ContributorProps {
@@ -43,7 +45,10 @@ const Lists = ({ selected }: ListsProps) => {
     if (selected !== 0) threadsByCategory;
   }, [selected, threadsByCategory]);
 
+  const [filterLoading, setFilterLoading] = useState<boolean>(false);
+
   useEffect(() => {
+    setFilterLoading(true);
     let arr: any = [];
     switch (selected) {
       case 0:
@@ -69,8 +74,11 @@ const Lists = ({ selected }: ListsProps) => {
         ],
         createdAt: thread.createdAt,
       };
-    });
-    setThreads(temp);
+    })
+    setThreads([
+      ...temp
+    ]);
+    setFilterLoading(false);
     console.log("temp", temp);
   }, [data, selected, threadsByCategory]);
 
@@ -84,7 +92,7 @@ const Lists = ({ selected }: ListsProps) => {
         setGlobalLoading(false);
       }, 2000);
     }
-  });
+  }, [globalLoading]);
 
   if (globalLoading) return <LoadingScreen />;
 
@@ -113,6 +121,13 @@ const Lists = ({ selected }: ListsProps) => {
           />
         </View>
       )}
+      {
+        filterLoading || isLoading || isFetching &&
+        <LoadingIndicator 
+          text="Filtering..."
+          subText="Please wait a moment"
+        />
+      }
     </View>
   );
 };

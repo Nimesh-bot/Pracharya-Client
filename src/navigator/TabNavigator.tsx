@@ -45,7 +45,10 @@ const TabNavigator = () => {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Create" component={CreateThreadStackNavigator} />
-        <Tab.Screen name="Bookmarks" component={BookmarksScreen} />
+        {
+          isLoggedIn &&
+          <Tab.Screen name="Bookmarks" component={BookmarksScreen} />
+        }
         {
           !isLoggedIn ?
           <Tab.Screen name="Login" component={Login} options={{ tabBarStyle: 

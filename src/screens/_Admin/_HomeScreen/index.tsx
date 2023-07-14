@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useGetCategoriesQuery } from "../../../redux/features/category/categoryApi.slice";
 import { useGetUnverifiedThreadsQuery } from "../../../redux/features/thread/threadApi.slice";
 
@@ -8,7 +8,7 @@ import LoadingScreen from "../../SplashScreen/LoadingScreen";
 import UnverifiedCard from "./components/UnverifiedCard";
 
 const _AdminHomeScreen = () => {
-  const { data, isLoading, isFetching } = useGetUnverifiedThreadsQuery();
+  const { data, isLoading, isFetching, refetch } = useGetUnverifiedThreadsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
   const [threads, setThreads] = useState<any>([]);
@@ -54,6 +54,7 @@ const _AdminHomeScreen = () => {
         </Text>
 
         <View className="flex-col mt-2xl">
+
           {!data || data.length === 0 ? (
             <View className="flex-col justify-center items-center">
               <Image
@@ -68,9 +69,20 @@ const _AdminHomeScreen = () => {
               </Text>
             </View>
           ) : (
-            threads?.map((each: any) => (
-              <UnverifiedCard key={each.id} post={each} />
-            ))
+            <>
+              <Pressable onPress={() => {
+                refetch();
+              }}>
+                <Text className="text-blue font-bold mb-default">
+                  Refetch
+                </Text>
+              </Pressable>
+              {
+                threads?.map((each: any) => (
+                  <UnverifiedCard key={each.id} post={each} />
+                ))
+              }
+            </>
           )}
         </View>
       </View>

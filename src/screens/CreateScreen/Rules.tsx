@@ -6,9 +6,29 @@ import AppBar from "../../components/AppBar";
 import { InfoIcon } from "../../../assets/icons/svg-icons";
 import tailwindConfig from "../../../tailwind.config";
 import { PrimaryButton } from "../../components/Buttons";
+import { useSelector } from "react-redux";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const Rules = ({ navigation }: any) => {
   const primaryColor = (tailwindConfig.theme as any).colors.blue;
+
+  const { isLoggedIn } = useSelector((state: any) => state.auth);
+
+  const handleNavigate = () => {
+    if (isLoggedIn) {
+      navigation.navigate("CreateForm");
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "You need to login first",
+        text2: "Redirecting to login page",
+      })
+      setTimeout(() => {
+        Toast.hide();
+        navigation.navigate("Login");
+      }, 1000)
+    }
+  }
 
   return (
     <View>
@@ -50,9 +70,7 @@ const Rules = ({ navigation }: any) => {
         <PrimaryButton
           text="I understand"
           className="mt-2xl"
-          onPress={() => {
-            navigation.navigate("CreateForm");
-          }}
+          onPress={handleNavigate}
         />
       </View>
     </View>

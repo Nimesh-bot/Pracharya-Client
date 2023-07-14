@@ -79,7 +79,7 @@ const Card = ({ post, fullContent }: any) => {
             Contributors
           </Text>
         </View>
-        <RightArrowIcon size={24} />
+        {/* <RightArrowIcon size={24} /> */}
       </View>
     </Pressable>
   );

@@ -10,6 +10,8 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
 import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
 import { useCreateCommentMutation } from "../../../../redux/features/comments/commentsApi.slice";
+import { useSelector } from "react-redux";
+import ErrorIndicator from "../../../../components/ErrorIndicator";
 
 interface PostCommentProps {
   comment: any;
@@ -19,6 +21,8 @@ interface PostCommentProps {
 const PostComment = ({ comment, threadId }: PostCommentProps) => {
   const { replying, setReplying } = usePostDetailContext();
   const [commentingTo, setCommentingTo] = useState<string>("");
+
+  const { isLoggedIn } = useSelector((state: any) => state.auth);
 
   const [commentText, setCommentText] = useState<string>("");
 
@@ -38,7 +42,22 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
     }
   }, [replying.isReplying]);
 
+  const [openPop, setOpenPop] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(openPop) {
+      setTimeout(() => {
+        setOpenPop(false);
+      }, 1500);
+    }
+  }, [openPop])
+
   const handleComment = () => {
+    console.log('log', isLoggedIn)
+    if (!isLoggedIn) {
+      setOpenPop(true);
+    }
+
     const data = {
       content: commentText,
       parentid: replying.isReplying ? replying.replyingTo : null,
@@ -96,6 +115,14 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
           subText="Your comment is being posted. Please wait"
         />
       )}
+      {
+        openPop && (
+          <ErrorIndicator
+            text="Login"
+            subText="You need to login to comment"
+          />
+        )
+      }
     </>
   );
 };

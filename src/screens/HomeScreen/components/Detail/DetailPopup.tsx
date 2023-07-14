@@ -102,12 +102,10 @@ const DetailPopup = () => {
                 (like: any) => like?.profileid === profileData?.id
               )}
               likes={
-                likesCount && likesCount?.length > 0 ? likesCount?.length : 0
+                data._count.like
               }
               comments={
-                commentsCount && commentsCount?.length > 0
-                  ? commentsCount?.length
-                  : 0
+                data._count.comment
               }
               commentShown={commentShown}
               setCommentShown={setCommentShown}
