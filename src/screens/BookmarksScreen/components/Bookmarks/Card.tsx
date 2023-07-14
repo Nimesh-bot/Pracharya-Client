@@ -15,6 +15,8 @@ import { SCREEN_WIDTH } from "../../../../libs/constants";
 const Card = ({ post, fullContent }: any) => {
   const primaryColor = (tailwindConfig as any).theme.colors.blue;
 
+  console.log('checking post content', post.content)
+
   const [source, setSource] = useState({
     html: "",
   } as any);
@@ -29,7 +31,7 @@ const Card = ({ post, fullContent }: any) => {
         html: post.content,
       });
     }
-  }, [fullContent]);
+  }, [fullContent, post.content]);
 
   const { setIsVisible, setPost } = usePostDetailContext();
 
@@ -43,6 +45,8 @@ const Card = ({ post, fullContent }: any) => {
     });
     setIsVisible(true);
   };
+
+  if(!post.content) return null;
 
   return (
     <Pressable

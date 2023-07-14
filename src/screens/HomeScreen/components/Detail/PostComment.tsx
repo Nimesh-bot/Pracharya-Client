@@ -28,12 +28,8 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
 
   const [createComment, { isLoading }] = useCreateCommentMutation();
 
-  console.log("threadId", threadId);
-
   useEffect(() => {
     if (replying.isReplying) {
-      console.log("comment", comment);
-      console.log("replying", replying);
       const name = comment?.find((each: any) => each.id === replying.replyingTo)
         ?.profile.firstname!;
       setCommentingTo(name);
@@ -53,7 +49,6 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
   }, [openPop])
 
   const handleComment = () => {
-    console.log('log', isLoggedIn)
     if (!isLoggedIn) {
       setOpenPop(true);
     }
@@ -62,7 +57,6 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
       content: commentText,
       parentid: replying.isReplying ? replying.replyingTo : null,
     };
-    console.log("payload", data);
     createComment({
       threadId,
       data,
@@ -72,7 +66,6 @@ const PostComment = ({ comment, threadId }: PostCommentProps) => {
         setCommentText("");
       })
       .catch((err) => {
-        console.log(err);
         Toast.show({
           type: "error",
           text1: "Error",

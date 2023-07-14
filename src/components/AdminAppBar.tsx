@@ -13,8 +13,7 @@ import { apiSlice } from "../redux/api/api.slice";
 import { unauthorize } from "../redux/features/auth/auth.slice";
 import { persistor } from "../redux/store";
 
-const AdminAppBar = () => {
-  const navigation = useNavigation<any>();
+const AdminAppBar = ({ navigation }: any) => {
 
   const primaryColor = (tailwindConfig.theme as any).colors.blue;
 
@@ -32,7 +31,7 @@ const AdminAppBar = () => {
       text2: "Clearing your data and logging you out.",
     });
     setTimeout(() => {
-      navigation.navigate("Home");
+      navigation.navigate("Login");
     }, 2000);
   };
 

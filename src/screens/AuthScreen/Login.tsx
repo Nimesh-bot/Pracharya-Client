@@ -43,7 +43,7 @@ const Login = ({ navigation }: any) => {
   });
 
   const handleNavigateBack = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Tab" || "Home");
   };
 
   const handlePhoneVerification = () => {

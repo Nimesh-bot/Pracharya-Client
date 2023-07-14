@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { Image, Pressable, ScrollView, Text, View, RefreshControl } from "react-native";
 import { useGetCategoriesQuery } from "../../../redux/features/category/categoryApi.slice";
 import { useGetUnverifiedThreadsQuery } from "../../../redux/features/thread/threadApi.slice";
 
 import AdminAppBar from "../../../components/AdminAppBar";
 import LoadingScreen from "../../SplashScreen/LoadingScreen";
 import UnverifiedCard from "./components/UnverifiedCard";
+import { useNavigation } from "@react-navigation/native";
 
 const _AdminHomeScreen = () => {
   const { data, isLoading, isFetching, refetch } = useGetUnverifiedThreadsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
+  const navigation = useNavigation<any>();
+
   const [threads, setThreads] = useState<any>([]);
 
-  console.log("unverified", data);
+  const onRefresh = useCallback(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (data !== undefined) {
@@ -45,8 +50,11 @@ const _AdminHomeScreen = () => {
       contentContainerStyle={{
         flexDirection: "column",
       }}
+      refreshControl={<RefreshControl refreshing={isFetching || isLoading} onRefresh={onRefresh} />}
     >
-      <AdminAppBar />
+      <AdminAppBar
+        navigation = {navigation} 
+      />
       <View className="mt-default flex-col px-xl">
         <Text className="text-xl font-bold">Welcome</Text>
         <Text className="text-dark">
@@ -70,13 +78,13 @@ const _AdminHomeScreen = () => {
             </View>
           ) : (
             <>
-              <Pressable onPress={() => {
+              {/* <Pressable onPress={() => {
                 refetch();
               }}>
                 <Text className="text-blue font-bold mb-default">
                   Refetch
                 </Text>
-              </Pressable>
+              </Pressable> */}
               {
                 threads?.map((each: any) => (
                   <UnverifiedCard key={each.id} post={each} />

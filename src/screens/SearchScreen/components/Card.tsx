@@ -5,18 +5,18 @@ import RenderHTML from "react-native-render-html";
 import {
   BookmarksIcon,
   RightArrowIcon,
-} from "../../../../../assets/icons/svg-icons";
-import Tags from "../../../../components/Tags";
+} from "../../../../assets/icons/svg-icons";
+import Tags from "../../../components/Tags";
 
-import tailwindConfig from "../../../../../tailwind.config";
-import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
-import { SCREEN_WIDTH } from "../../../../libs/constants";
+import tailwindConfig from "../../../../tailwind.config";
+import { usePostDetailContext } from "../../../context/PostDetailContextProvider";
+import { SCREEN_WIDTH } from "../../../libs/constants";
 import {
   useAddBookmarkMutation,
   useDeleteBookmarkMutation,
   useGetBookmarksQuery,
-} from "../../../../redux/features/bookmarks/bookmarksApi.slice";
-import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
+} from "../../../redux/features/bookmarks/bookmarksApi.slice";
+import { useGetCategoriesQuery } from "../../../redux/features/category/categoryApi.slice";
 import { useSelector } from "react-redux";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
@@ -27,8 +27,6 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   const { isLoggedIn } = useSelector((state: any) => state.auth);
 
   const { category, title, content, creators, id } = post;
-
-  console.log('check in card', title, category)
 
   const { data: categoriesData, refetch: categoriesRefetch } =
     useGetCategoriesQuery();
@@ -53,21 +51,21 @@ const Card = ({ post, fullContent }: PostCardProps) => {
     }
   }, [isLoggedIn]);
 
-  const [source, setSource] = useState({
-    html: "",
-  } as any);
+//   const [source, setSource] = useState({
+//     html: "",
+//   } as any);
 
-  useEffect(() => {
-    if (!fullContent) {
-      setSource({
-        html: content.slice(0, 100),
-      });
-    } else {
-      setSource({
-        html: content,
-      });
-    }
-  }, [content, fullContent]);
+//   useEffect(() => {
+//     if (!fullContent) {
+//       setSource({
+//         html: content.slice(0, 100),
+//       });
+//     } else {
+//       setSource({
+//         html: content,
+//       });
+//     }
+//   }, [content, fullContent]);
 
   const { setIsVisible, setPost } = usePostDetailContext();
 
@@ -108,6 +106,8 @@ const Card = ({ post, fullContent }: PostCardProps) => {
     }
   };
 
+  console.log('check in card', title, category);
+
   return (
     <Pressable
       className="py-default px-xl w-full bg-white rounded-md flex-col mt-lg first-of-type:mt-0"
@@ -126,9 +126,14 @@ const Card = ({ post, fullContent }: PostCardProps) => {
         <View className="py-xs border-b border-b-border">
           <Text className="text-lg font-bold">{title}</Text>
         </View>
-        <View className="opacity-70 mt-default">
+        {/* <View className="opacity-70 mt-default">
           <RenderHTML
-            source={source ? source : { html: "" }}
+            source={content ? {
+                html: content.slice(0, 100),
+                } : {
+                    html: '',
+                }
+            }
             contentWidth={SCREEN_WIDTH - 64}
             tagsStyles={{
               h1: {
@@ -155,7 +160,7 @@ const Card = ({ post, fullContent }: PostCardProps) => {
               },
             }}
           />
-        </View>
+        </View> */}
       </View>
       <View className="flex-row justify-between items-center mt-xl">
         <View className="flex-row items-center">

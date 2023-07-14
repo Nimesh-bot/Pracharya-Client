@@ -33,34 +33,40 @@ const SearchScreen = () => {
   const { data: categories } = useGetCategoriesQuery();
 
   const handleSearchResult = () => {
-    if (searchText.length === 0) {
-      setSearchResult([]);
-      setFirstLoad(true);
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Please enter something to search",
-        visibilityTime: 1000,
-        autoHide: true,
-      });
-    } else {
-      setFirstLoad(false);
-      console.log("in else");
-      console.log(
-        "check",
-        threads?.some(
+    console.log('searchText', searchText)
+
+      if (searchText.length === 0) {
+        setSearchResult([]);
+        setFirstLoad(true);
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: "Please enter something to search",
+          visibilityTime: 1000,
+          autoHide: true,
+        });
+      } else {
+        setFirstLoad(false);
+        const temp = threads?.filter(
           (each: any) =>
-            each?.title?.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
-        )
-      );
-      const temp = threads?.filter(
-        (each: any) =>
           each?.title?.toLowerCase().includes(searchText.toLowerCase()) ||
           each?.content?.toLowerCase().includes(searchText.toLowerCase())
-      );
-      console.log("--------------------------------------------");
-      console.log("search result: ", temp);
-      console.log("--------------------------------------------");
+        ).map((each: any, index: number) => {
+          return {
+            id: each?.id,
+          title: each?.title,
+          content: each?.content,
+          category: categories?.find(
+            (category: any) => category?.id === each?.categoryId
+          )?.name,
+          creators: [
+            {
+              avatar: each?.creator?.avatar,
+            },
+          ],
+          }
+        })
+          console.log('test', threads?.filter((each: any) => each?.title?.toLowerCase().includes(searchText.toLowerCase())))
       const modified = temp?.map((each: any) => {
         return {
           id: each?.id,
@@ -76,8 +82,8 @@ const SearchScreen = () => {
           ],
         };
       });
-      console.log("modified: ", modified);
       setSearchResult(modified);
+      console.log('res search result', searchResult)
     }
   };
 
@@ -85,9 +91,7 @@ const SearchScreen = () => {
     <ScrollView
       contentContainerStyle={{
         flexDirection: "column",
-        flex: 1,
-        width: "100%",
-        position: "relative",
+        
       }}
     >
       <AppBar />
@@ -146,7 +150,13 @@ const SearchScreen = () => {
               />
             </View>
           ) : (
-            <Card post={searchResult} fullContent={true} />
+            <>
+              {
+                searchResult.map((each: any, index: number) => {
+                  <Text>{each.title}</Text>
+                })
+              }
+            </>
           )}
         </View>
       </View>

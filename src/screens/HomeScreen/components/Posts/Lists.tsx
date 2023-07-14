@@ -30,8 +30,8 @@ interface ListsProps {
 }
 
 const Lists = ({ selected }: ListsProps) => {
-  const { data, isLoading, isFetching } = useGetAllThreadsQuery();
-  const { data: threadsByCategory } = useGetThreadsByCategoryQuery(selected);
+  const { data, isLoading, isFetching, refetch } = useGetAllThreadsQuery();
+  const { data: threadsByCategory, isFetching: fetchingThreadByCategory } = useGetThreadsByCategoryQuery(selected);
 
   const {
     data: categories,
@@ -40,6 +40,8 @@ const Lists = ({ selected }: ListsProps) => {
   } = useGetCategoriesQuery();
 
   const [threads, setThreads] = useState<ManipulatedThreadProps[] | any>([]);
+
+  console.log("threads", data);
 
   useEffect(() => {
     if (selected !== 0) threadsByCategory;
@@ -61,25 +63,22 @@ const Lists = ({ selected }: ListsProps) => {
 
     const temp = arr?.map((thread: Threads.ThreadsProps) => {
       return {
-        id: thread.id,
-        title: thread.title,
-        content: thread.content,
+        id: thread?.id,
+        title: thread?.title,
+        content: thread?.content,
         category: categories?.find(
-          (category) => category.id === thread.categoryId
+          (category) => category?.id === thread?.categoryId
         )?.name,
         creators: [
           {
-            avatar: thread.creator.avatar,
+            avatar: thread?.creator?.avatar,
           },
         ],
-        createdAt: thread.createdAt,
+        createdAt: thread?.createdAt,
       };
     })
-    setThreads([
-      ...temp
-    ]);
+    setThreads(temp);
     setFilterLoading(false);
-    console.log("temp", temp);
   }, [data, selected, threadsByCategory]);
 
   const navigation = useNavigation<any>();
@@ -122,7 +121,7 @@ const Lists = ({ selected }: ListsProps) => {
         </View>
       )}
       {
-        filterLoading || isLoading || isFetching &&
+        filterLoading || isLoading || isFetching || fetchingThreadByCategory &&
         <LoadingIndicator 
           text="Filtering..."
           subText="Please wait a moment"

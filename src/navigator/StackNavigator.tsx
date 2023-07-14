@@ -19,8 +19,6 @@ const StackNavigator = () => {
   const { isLoggedIn } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
-    console.log("isLoggedIn", isLoggedIn);
-    console.log("profile", profile);
     if (isLoggedIn) {
       if (profile?.user?.role === "ADMIN") {
         navigation.navigate("AdminTab");

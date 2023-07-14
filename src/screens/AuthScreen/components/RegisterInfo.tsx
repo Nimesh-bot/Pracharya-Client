@@ -128,10 +128,10 @@ const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
           <PlainInputField
             placeholder="Alber"
             value={registerInfo.middlename}
-            onChangeText={(text: string) => {
+            onChange={(e) => {
               setRegisterInfo({
                 ...registerInfo,
-                middleName: text,
+                middleName: e.nativeEvent.text,
               });
             }}
           />

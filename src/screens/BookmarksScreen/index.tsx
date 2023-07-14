@@ -14,10 +14,7 @@ const BookmarksScreen = () => {
     >
       <AppBar />
       <View className="flex-col p-xl">
-        {/* <Tabs 
-          isBookmark={isBookmark}
-          setIsBookmark={setIsBookmark}
-        /> */}
+        
         {isBookmark ? <Lists /> : <></>}
       </View>
     </ScrollView>

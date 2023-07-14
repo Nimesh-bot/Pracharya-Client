@@ -19,13 +19,12 @@ const Lists = () => {
 
   useEffect(() => {
     bookmarksRefetch();
-    console.log("book", bookmarkData);
   }, []);
 
   const [bookmarks, setBookmarks] = useState<any>([]);
 
-  // do that temp function in useMemo
   useMemo(() => {
+    console.log('bookmarkData', bookmarkData)
     let temp = bookmarkData?.map((bookmark: any) => {
       return {
         bookmarkId: bookmark.id,
@@ -37,20 +36,23 @@ const Lists = () => {
         )?.name,
         creators: [
           {
-            avatar: bookmark.thread.creator.avatar,
+            avatar: bookmark?.thread?.creator?.avatar,
           },
         ],
       };
     });
     setBookmarks(temp);
+    console.log('temp in useMemo', temp)
   }, [bookmarkData, categoriesData]);
+
+  if(!bookmarks) return null;
 
   return (
     <>
       <View className="flex-col items-center w-full">
         {bookmarks &&
           bookmarks?.map((bookmark: any, index: number) => (
-            <Card key={index} post={bookmark} />
+            <Card key={index} post={bookmark} fullContent={true} />
           ))}
         {bookmarks === undefined ||
           (bookmarks?.length === 0 && (
