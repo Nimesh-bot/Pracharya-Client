@@ -7,7 +7,7 @@ const UserCard = ({ data }: any) => {
       <View className="flex-row">
         <Image
           source={{
-            uri: "https://i.pinimg.com/236x/dc/d6/a2/dcd6a208327bf5db5e6445b81832c385.jpg",
+            uri: data.avatar,
           }}
           className="w-12 h-12 rounded-full"
         />

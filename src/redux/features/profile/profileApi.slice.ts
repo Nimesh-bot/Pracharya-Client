@@ -20,8 +20,29 @@ export const profileApi = apiSlice
         }),
         invalidatesTags: ["Profile"],
       }),
+      editUserProfile: builder.mutation<any, any>({
+        query: (data) => ({
+          url: `profile/update_profile`,
+          method: "PATCH",
+          body: data,
+        }),
+        invalidatesTags: ["Profile"],
+      }),
+      changeUserAvatar: builder.mutation<any, any>({
+        query: (formData) => ({
+          url: `profile/update_avatar`,
+          method: "POST",
+          body: formData,
+        }),
+        invalidatesTags: ["Profile"],
+      }),
     }),
     overrideExisting: true,
   });
 
-export const { useUserDetailQuery, useDeleteUserProfileMutation } = profileApi;
+export const {
+  useUserDetailQuery,
+  useDeleteUserProfileMutation,
+  useEditUserProfileMutation,
+  useChangeUserAvatarMutation,
+} = profileApi;

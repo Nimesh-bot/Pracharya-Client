@@ -49,10 +49,7 @@ const AccountDetails = ({ navigation, data }: any) => {
           </View>
           <View className="flex-row gap-x-4 items-center">
             <Text className="text-blue font-medium">{data.user.email}</Text>
-            <Pressable
-              className="p-sm bg-white rounded-sm"
-              onPress={() => navigation.navigate("EmailEdit")}
-            >
+            <Pressable className="p-sm bg-light rounded-sm opacity-0">
               <LinearRightIcon size={18} color={defaultColor} />
             </Pressable>
           </View>

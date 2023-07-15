@@ -33,57 +33,43 @@ const SearchScreen = () => {
   const { data: categories } = useGetCategoriesQuery();
 
   const handleSearchResult = () => {
-    console.log('searchText', searchText)
+    console.log("searchText", searchText);
 
-      if (searchText.length === 0) {
-        setSearchResult([]);
-        setFirstLoad(true);
-        Toast.show({
-          type: "error",
-          text1: "Error",
-          text2: "Please enter something to search",
-          visibilityTime: 1000,
-          autoHide: true,
-        });
-      } else {
-        setFirstLoad(false);
-        const temp = threads?.filter(
+    if (searchText.length === 0) {
+      setSearchResult([]);
+      setFirstLoad(true);
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please enter something to search",
+        visibilityTime: 1000,
+        autoHide: true,
+      });
+    } else {
+      setFirstLoad(false);
+      const temp = threads
+        ?.filter(
           (each: any) =>
-          each?.title?.toLowerCase().includes(searchText.toLowerCase()) ||
-          each?.content?.toLowerCase().includes(searchText.toLowerCase())
-        ).map((each: any, index: number) => {
+            each?.title?.toLowerCase().includes(searchText.toLowerCase()) ||
+            each?.content?.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .map((each: any, index: number) => {
           return {
             id: each?.id,
-          title: each?.title,
-          content: each?.content,
-          category: categories?.find(
-            (category: any) => category?.id === each?.categoryId
-          )?.name,
-          creators: [
-            {
-              avatar: each?.creator?.avatar,
-            },
-          ],
-          }
-        })
-          console.log('test', threads?.filter((each: any) => each?.title?.toLowerCase().includes(searchText.toLowerCase())))
-      const modified = temp?.map((each: any) => {
-        return {
-          id: each?.id,
-          title: each?.title,
-          content: each?.content,
-          category: categories?.find(
-            (category: any) => category?.id === each?.categoryId
-          )?.name,
-          creators: [
-            {
-              avatar: each?.creator?.avatar,
-            },
-          ],
-        };
-      });
-      setSearchResult(modified);
-      console.log('res search result', searchResult)
+            title: each?.title,
+            content: each?.content,
+            category: categories?.find(
+              (category: any) => category?.id === each?.categoryId
+            )?.name,
+            creators: [
+              {
+                avatar: each?.creator?.avatar,
+              },
+            ],
+          };
+        });
+      setSearchResult(temp);
+      console.log("res search result", searchResult);
     }
   };
 
@@ -91,7 +77,6 @@ const SearchScreen = () => {
     <ScrollView
       contentContainerStyle={{
         flexDirection: "column",
-        
       }}
     >
       <AppBar />
@@ -151,11 +136,9 @@ const SearchScreen = () => {
             </View>
           ) : (
             <>
-              {
-                searchResult.map((each: any, index: number) => {
-                  <Text>{each.title}</Text>
-                })
-              }
+              {searchResult.map((each: any, index: number) => (
+                <Card key={index} post={each} fullContent={false} />
+              ))}
             </>
           )}
         </View>
