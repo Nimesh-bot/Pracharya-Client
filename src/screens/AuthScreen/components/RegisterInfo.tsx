@@ -1,13 +1,7 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 

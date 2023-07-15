@@ -1,5 +1,5 @@
 import { BlurView } from "expo-blur";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Modal,
@@ -16,7 +16,10 @@ import AppBar from "../../components/AppBar";
 import { PrimaryButton } from "../../components/Buttons";
 import { PlainInputField } from "../../components/InputFields";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import { useEditUserProfileMutation } from "../../redux/features/profile/profileApi.slice";
+import {
+  useEditUserProfileMutation,
+  useUserDetailQuery,
+} from "../../redux/features/profile/profileApi.slice";
 
 const FullNameEdit = ({ navigation }: any) => {
   const [userEditData, setUserEditData] = useState<any>({
@@ -25,6 +28,11 @@ const FullNameEdit = ({ navigation }: any) => {
     lastname: "",
   });
 
+  const {
+    data,
+    isLoading: profileloading,
+    isFetching: profileFetching,
+  } = useUserDetailQuery();
   const [editUserProfile, { isLoading }] = useEditUserProfileMutation();
 
   const handleEditUserProfile = () => {
@@ -45,6 +53,16 @@ const FullNameEdit = ({ navigation }: any) => {
       navigation.navigate("Profile");
     });
   };
+
+  useEffect(() => {
+    if (data) {
+      setUserEditData({
+        firstname: data.firstname,
+        middlename: data.middlename,
+        lastname: data.lastname,
+      });
+    }
+  }, [data]);
 
   return (
     <View className="flex-1 flex-col relative">
@@ -86,9 +104,17 @@ const FullNameEdit = ({ navigation }: any) => {
                   <View>
                     <Text className="text-dark">First Name</Text>
                     <PlainInputField
-                      placeholder="First Name"
+                      placeholder={
+                        profileloading || profileFetching
+                          ? "Fetching..."
+                          : data?.firstname
+                      }
                       additionalCss="mt-default"
-                      value={userEditData.firstname}
+                      value={
+                        profileloading || profileFetching
+                          ? ""
+                          : userEditData.firstname
+                      }
                       onChange={(e) =>
                         setUserEditData({
                           ...userEditData,
@@ -117,7 +143,11 @@ const FullNameEdit = ({ navigation }: any) => {
                   <View className="mt-lg">
                     <Text className="text-dark">Last Name</Text>
                     <PlainInputField
-                      placeholder="Last Name"
+                      placeholder={
+                        profileloading || profileFetching
+                          ? "Fetching..."
+                          : data?.lastname
+                      }
                       additionalCss="mt-default"
                       value={userEditData.lastname}
                       onChange={(e) =>

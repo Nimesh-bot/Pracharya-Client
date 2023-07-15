@@ -45,12 +45,12 @@ const CreateForm = () => {
         title: !title ? "Title is required" : "",
         content: !content ? "Content is required" : "",
       });
-    } else if (title.length > 20) {
+    } else if (title.length > 50) {
       setError({
         ...error,
         title: "Title must be at most 20 characters long",
       });
-    } else if (content.length > 500) {
+    } else if (content.length > 1000) {
       setError({
         ...error,
         content: "Content must be at most 250 characters long",

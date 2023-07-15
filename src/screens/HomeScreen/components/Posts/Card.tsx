@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import RenderHTML from "react-native-render-html";
 
-import {
-  BookmarksIcon,
-  RightArrowIcon,
-} from "../../../../../assets/icons/svg-icons";
+import { BookmarksIcon } from "../../../../../assets/icons/svg-icons";
 import Tags from "../../../../components/Tags";
 
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useSelector } from "react-redux";
 import tailwindConfig from "../../../../../tailwind.config";
 import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
 import { SCREEN_WIDTH } from "../../../../libs/constants";
@@ -17,8 +16,6 @@ import {
   useGetBookmarksQuery,
 } from "../../../../redux/features/bookmarks/bookmarksApi.slice";
 import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
-import { useSelector } from "react-redux";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const Card = ({ post, fullContent }: PostCardProps) => {
   const textColor = (tailwindConfig as any).theme.colors.dark;
@@ -28,12 +25,11 @@ const Card = ({ post, fullContent }: PostCardProps) => {
 
   const { category, title, content, creators, id } = post;
 
-  console.log('check in card', title, category)
-
   const { data: categoriesData, refetch: categoriesRefetch } =
     useGetCategoriesQuery();
 
-  const { data: bookmarksData, refetch: bookmarksRefetch } = useGetBookmarksQuery();
+  const { data: bookmarksData, refetch: bookmarksRefetch } =
+    useGetBookmarksQuery();
   const [addBookmark] = useAddBookmarkMutation();
   const [deleteBookmark] = useDeleteBookmarkMutation();
 
@@ -83,12 +79,12 @@ const Card = ({ post, fullContent }: PostCardProps) => {
   };
 
   const handleBookmark = () => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       Toast.show({
         type: "error",
         text1: "Login",
         text2: "You need to login to bookmark",
-      })
+      });
       return;
     }
     setIsBookmarked(!isBookmarked);

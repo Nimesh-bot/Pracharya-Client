@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 import LoadingIndicator from "../../../../components/LoadingIndicator";
@@ -23,8 +23,8 @@ const Lists = () => {
 
   const [bookmarks, setBookmarks] = useState<any>([]);
 
-  useMemo(() => {
-    console.log('bookmarkData', bookmarkData)
+  useEffect(() => {
+    console.log("bookmarkData", bookmarkData);
     let temp = bookmarkData?.map((bookmark: any) => {
       return {
         bookmarkId: bookmark.id,
@@ -42,10 +42,11 @@ const Lists = () => {
       };
     });
     setBookmarks(temp);
-    console.log('temp in useMemo', temp)
+    console.log("temp in useMemo", temp);
   }, [bookmarkData, categoriesData]);
 
-  if(!bookmarks) return null;
+  console.log("bookmarks", bookmarks);
+  if (!bookmarks) return null;
 
   return (
     <>
