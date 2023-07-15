@@ -89,7 +89,6 @@ const Register = ({ navigation }: any) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
       className="p-xl w-full flex-col justify-between flex-1"
     >
       <ScrollView>

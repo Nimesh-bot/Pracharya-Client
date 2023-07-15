@@ -105,9 +105,7 @@ const RegisterInfo = ({ registerInfo, setRegisterInfo }: RegisterProps) => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      <KeyboardAvoidingView>
         <View>
           <Text className="text-dark opacity-80 mb-sm">First Name</Text>
           <PlainInputField
