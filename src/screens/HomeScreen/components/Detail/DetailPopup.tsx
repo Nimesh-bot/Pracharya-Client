@@ -1,71 +1,124 @@
-import React, { useState } from 'react'
-import { View, Text, ScrollView, Modal, Pressable } from 'react-native'
-import { BlurView } from 'expo-blur';
+import { BlurView } from "expo-blur";
+import React, { useEffect, useState } from "react";
+import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 
-import Card from '../Posts/Card';
-import { RightArrowIcon } from '../../../../../assets/icons/svg-icons';
-import { fakePosts } from '../../../../libs/constants';
-import Interactions from './Interactions';
-import PostComment from './PostComment';
-import { usePostDetailContext } from '../../../../context/PostDetailContextProvider';
-import Comments from './Comments';
+import Card from "../Posts/Card";
+import Comments from "./Comments";
+import Interactions from "./Interactions";
+import PostComment from "./PostComment";
 
+import { RightArrowIcon } from "../../../../../assets/icons/svg-icons";
+import { usePostDetailContext } from "../../../../context/PostDetailContextProvider";
+
+import LoadingIndicator from "../../../../components/LoadingIndicator";
+import { useGetCommentsOfThreadQuery } from "../../../../redux/features/comments/commentsApi.slice";
+import { useGetLikesofThreadQuery } from "../../../../redux/features/likes/likeApi.slice";
+import { useUserDetailQuery } from "../../../../redux/features/profile/profileApi.slice";
+import { useGetThreadByIdQuery } from "../../../../redux/features/thread/threadApi.slice";
 
 const DetailPopup = () => {
-    const { isVisible, setIsVisible } = usePostDetailContext();
+  const { isVisible, setIsVisible, post } = usePostDetailContext();
 
-    const [commentShown, setCommentShown] = useState(false)
+  const [commentShown, setCommentShown] = useState(false);
 
+  const { data, isLoading, isFetching } = useGetThreadByIdQuery(post.id);
+  const {
+    data: likesCount,
+    isLoading: likesCountLoading,
+    refetch: likeRefetch,
+  } = useGetLikesofThreadQuery(post.id);
+  const {
+    data: commentsCount,
+    isLoading: commentsCountLoading,
+    refetch: commentRefetch,
+  } = useGetCommentsOfThreadQuery(post.id);
+
+  const { data: profileData, refetch: profileRefetch } = useUserDetailQuery();
+
+  const [globalLoading, setGlobalLoading] = useState(true);
+
+  useEffect(() => {
+    data;
+    likeRefetch();
+    commentRefetch();
+    profileRefetch();
+  }, [data, likesCount, commentsCount]);
+
+  useEffect(() => {
+    if (globalLoading) {
+      setTimeout(() => {
+        setGlobalLoading(false);
+      }, 2000);
+    }
+  }, [globalLoading]);
+
+  if (globalLoading)
     return (
-        <Modal
-            animationType='slide'
-            transparent={true}
-            visible={isVisible}
-            onRequestClose={() => {
-                setIsVisible(false)
-            }}
-        >
-            <BlurView 
-                className='bg-opacity-60 backdrop-blur-sm w-screen h-screen flex-col justify-end absolute top-0 left-0 z-50'
-                tint='light'
-                intensity={80}
-            >
-                <ScrollView
-                    contentContainerStyle={{
-                        paddingBottom: 20
-                    }}
-                >
-                    <View className='w-full flex-1 mt-3xl rounded-t-lg bg-white flex-col p-xl'>
-                        <Pressable className='flex-row items-center' onPress={() => {
-                            setIsVisible(false)
-                        }}>
-                            <View className='rotate-180 max-w-fit'>
-                                <RightArrowIcon size={24} />
-                            </View>
-                            <Text className='ml-default text-xl font-bold'>Thread Details</Text>
-                        </Pressable>
-                        <Card 
-                            post={fakePosts[0]}
-                            fullContent={true}
-                        />
-                        <Interactions 
-                            commentShown={commentShown}
-                            setCommentShown={setCommentShown}
-                        />
-                        <PostComment />
-                        {
-                            fakePosts[0].comments.map((comment: any, index: number) => (
-                                <Comments
-                                    comment={comment}
-                                    key={index}
-                                />
-                            ))
-                        }
-                    </View>
-                </ScrollView>
-            </BlurView>
-        </Modal>
-    )
-}
+      <LoadingIndicator
+        text="Fetching Details"
+        subText="Please wait while we fetch the details of the thread."
+      />
+    );
 
-export default DetailPopup
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={() => {
+        setIsVisible(false);
+      }}
+    >
+      <BlurView
+        className="bg-opacity-60 backdrop-blur-sm w-screen h-screen flex-col justify-end absolute top-0 left-0 z-50"
+        tint="light"
+        intensity={80}
+      >
+        <ScrollView
+          contentContainerStyle={{
+            paddingBottom: 20,
+            flexDirection: "column",
+            flexGrow: 1,
+          }}
+        >
+          <View className="w-full flex-1 mt-3xl rounded-t-lg bg-white flex-col p-xl">
+            <Pressable
+              className="flex-row items-center"
+              onPress={() => {
+                setIsVisible(false);
+              }}
+            >
+              <View className="rotate-180 max-w-fit">
+                <RightArrowIcon size={24} />
+              </View>
+              <Text className="ml-default text-xl font-bold">
+                Thread Details
+              </Text>
+            </Pressable>
+            <Card post={post} fullContent={true} />
+            <Interactions
+              threadId={post.id}
+              active={likesCount?.some(
+                (like: any) => like?.profileid === profileData?.id
+              )}
+              likes={
+                data?._count?.like
+              }
+              comments={
+                data?._count?.comment
+              }
+              commentShown={commentShown}
+              setCommentShown={setCommentShown}
+            />
+            <PostComment comment={commentsCount} threadId={post.id} />
+            {commentsCount?.map((comment: any, index: number) => (
+              <Comments comment={comment} key={index} />
+            ))}
+          </View>
+        </ScrollView>
+      </BlurView>
+    </Modal>
+  );
+};
+
+export default DetailPopup;

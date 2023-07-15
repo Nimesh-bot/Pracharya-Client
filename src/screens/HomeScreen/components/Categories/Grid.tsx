@@ -1,44 +1,47 @@
-import { ScrollView, View } from 'react-native'
-import React from 'react'
-import { categoryLists } from '../../../../libs/constants'
+import React from "react";
+import { ScrollView } from "react-native";
 
-import Card from './Card'
+import { useGetCategoriesQuery } from "../../../../redux/features/category/categoryApi.slice";
+import Card from "./Card";
 
-const Grid = () => {
-    const [selected, setSelected] = React.useState(1)
-
-    return (
-        <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                flexShrink: 0,
-            }}
-        >
-            <Card
-                icon={'menu'}
-                title={'All'}
-                active={selected === 1}
-                onPress={() => setSelected(1)}
-                additionalCss={'ml-0'}
-            />
-            {
-                categoryLists.map((category, index) => (
-                    <Card
-                        key={index}
-                        icon={category.iconName}
-                        index={index}
-                        title={category.name}
-                        active={selected === category.id}
-                        onPress={() => setSelected(category.id)}
-                    />
-                ))
-            }
-        </ScrollView>
-    )
+interface GridProps {
+  selected: number;
+  setSelected: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default Grid
+const Grid = ({ selected, setSelected }: GridProps) => {
+  const { data: categories } = useGetCategoriesQuery();
+
+  return (
+    <ScrollView
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        flexShrink: 0,
+      }}
+    >
+      <Card
+        icon={"menu"}
+        title={"All"}
+        active={selected === 0}
+        onPress={() => setSelected(0)}
+        additionalCss={"ml-0"}
+      />
+      {categories?.map((category: CategoryProps, index: number) => (
+        <Card
+          key={index}
+          icon={category.iconname}
+          index={index}
+          title={category.name}
+          active={selected === category.id}
+          onPress={() => setSelected(category.id)}
+        />
+      ))}
+    </ScrollView>
+  );
+};
+
+export default Grid;

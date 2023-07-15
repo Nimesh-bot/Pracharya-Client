@@ -1,5 +1,5 @@
 declare interface AuthState {
-    isLoggedIn: boolean;
-    access?: string;
-    refresh?: string;
+  isLoggedIn: boolean;
+  access_token?: string;
+  refresh_token?: string;
 }

@@ -9,7 +9,7 @@ interface InputProps extends TextInputProps {
   prefix?: string | JSX.Element;
   isReplying?: boolean;
   dropdown?: boolean;
-  setDropdown: Function;
+  setDropdown?: Function;
   handleCancelReply?: () => void;
   options?: Array<string>;
 }
@@ -64,7 +64,7 @@ const SearchField = ({ additionalCss, dropdown, setDropdown, options, ...otherPr
         className={`flex-1 py-default px-xl rounded-default bg-light ${additionalCss}`}
         {...otherProps}
         onBlur={() => {
-          setDropdown(false)
+          setDropdown!(false)
         }}
       ></TextInput>
       {
